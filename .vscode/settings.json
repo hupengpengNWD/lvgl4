@@ -1,0 +1,18 @@
+
+{
+    /* cortex-debug配置 */
+    "cortex-debug.armToolchainPath": "/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/bin/arm-none-eabi-gcc",/* 指定Cortex-Debug使用的工具链路径 */
+    "cortex-debug.openocdPath": "/usr/local/bin/openocd",                                                          /* 指定Cortex-Debug使用的OpenOCD路径 */
+
+    /* clangd配置 */
+    "clangd.path": "/usr/bin/clangd",                                                                              /* 指定clangd可执行文件路径 */        
+    "clangd.arguments": [              
+        //"--index-root=/path/to/custom/index",                                                                    /* 指定索引文件的缓存路径 */
+        "--compile-commands-dir=${workspaceFolder}/Appli",                                                          /* 指定compile_commands.json文件的生成路径 */
+        "--background-index",                                                                                      /* 后台索引项目以加速导航 */
+        "--header-insertion=iwyu",                                                                                 /* 自动插入缺失的头文件 */
+        "--completion-style=detailed",                                                                             /* 提供详细的补全建议 */
+        "--query-driver=/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/bin/arm-none-eabi-*",                /* ARM工具链驱动路径*/
+        "--log=verbose",                                                                                           /* 启用 Clangd 的详细日志以查看解析问题 */               
+    ],
+}

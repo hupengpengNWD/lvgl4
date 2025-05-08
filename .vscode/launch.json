@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug App",
+            "type": "cortex-debug",
+            "request": "attach", /* 从boot工程接管 */
+            "servertype": "openocd",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/Appli/build/Appli.elf",
+            "device": "STM32H7R7L8",
+            "interface": "swd",
+            "configFiles": [
+                "${workspaceFolder}/openocd.cfg"
+            ],
+            "dontStartGdbServer": true,
+            "openocdPath": "/usr/local/bin/openocd",
+            "gdbPath": "/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/bin/arm-none-eabi-gdb",
+            "gdbTarget": "localhost:50000",
+            "showDevDebugOutput": "raw",
+            //"preLaunchTask": "build",
+            "toolchainPath": "/Applications/ArmGNUToolchain/14.2.rel1/arm-none-eabi/bin",
+            "toolchainPrefix": "arm-none-eabi",
+            "serverArgs": [],
+            "preLaunchCommands": [
+                //"load", // 加载 ELF 文件到 SDRAM（0xC1000000）
+                "monitor reg pc 0xC1000000" // 设置程序计数器为入口点
+            ],
+            "postLaunchCommands": [
+                "break main", // 在 main 函数设置断点
+                "continue"
+            ]
+        }
+    ]
+}
