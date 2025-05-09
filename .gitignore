@@ -1,0 +1,8 @@
+Appli/.cache/clangd/index/*.idx
+.DS_Store
+compile_commands.json
+Appli/build/
+*.bin
+*.map
+*.obj
+*.obj.d

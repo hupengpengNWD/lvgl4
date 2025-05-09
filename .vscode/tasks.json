@@ -56,10 +56,10 @@
                 "--extload", "${workspaceFolder}/ExtMemLoader.stldr",/* 辅助加载程序的路径 */
                 "-w", "${workspaceFolder}/Appli/build/Appli.elf", "0x90000000"
             ],
-            "group": "build",
-            "problemMatcher": [],
-            "dependsOn": ["build"],
-            "detail": "Flash Appli.elf to QSPI Flash using STM32CubeProgrammer"
+            // "group": "build",
+            // "problemMatcher": [],
+            // "dependsOn": ["build"],
+            // "detail": "Flash Appli.elf to QSPI Flash using STM32CubeProgrammer"
         }
     ],
     "inputs": [

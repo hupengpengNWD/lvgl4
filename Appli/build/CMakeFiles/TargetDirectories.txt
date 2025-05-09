@@ -1,4 +1,0 @@
-/Users/petrinamigdal/mcu_prj/my_lvgl_app5/Appli/build/CMakeFiles/Appli.dir
-/Users/petrinamigdal/mcu_prj/my_lvgl_app5/Appli/build/CMakeFiles/STM32_Drivers.dir
-/Users/petrinamigdal/mcu_prj/my_lvgl_app5/Appli/build/CMakeFiles/edit_cache.dir
-/Users/petrinamigdal/mcu_prj/my_lvgl_app5/Appli/build/CMakeFiles/rebuild_cache.dir

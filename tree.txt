@@ -1,0 +1,308 @@
+.
+├── Appli
+│   ├── CMakeLists.txt
+│   ├── Core
+│   │   ├── Inc
+│   │   │   ├── gpio.h
+│   │   │   ├── main.h
+│   │   │   ├── stm32h7rsxx_hal_conf.h
+│   │   │   ├── stm32h7rsxx_it.h
+│   │   │   └── usb_otg.h
+│   │   ├── Src
+│   │   │   ├── gpio.c
+│   │   │   ├── main.c
+│   │   │   ├── stm32h7rsxx_hal_msp.c
+│   │   │   ├── stm32h7rsxx_it.c
+│   │   │   ├── syscalls.c
+│   │   │   ├── sysmem.c
+│   │   │   ├── system_stm32h7rsxx.c
+│   │   │   └── usb_otg.c
+│   │   └── Startup
+│   │       └── startup_stm32h7r7xx.s
+│   ├── compile_commands.json
+│   ├── mx-generated.cmake
+│   ├── stm32h7r7xx_flash.ld
+│   └── stm32h7r7xx_flash.ld.copy
+├── Drivers
+│   ├── CMSIS
+│   │   ├── Device
+│   │   │   └── ST
+│   │   │       └── STM32H7RSxx
+│   │   │           ├── Include
+│   │   │           │   ├── stm32h7r7xx.h
+│   │   │           │   ├── stm32h7rsxx.h
+│   │   │           │   └── system_stm32h7rsxx.h
+│   │   │           ├── LICENSE.txt
+│   │   │           └── Source
+│   │   │               └── Templates
+│   │   ├── Include
+│   │   │   ├── cachel1_armv7.h
+│   │   │   ├── cmsis_armcc.h
+│   │   │   ├── cmsis_armclang.h
+│   │   │   ├── cmsis_armclang_ltm.h
+│   │   │   ├── cmsis_compiler.h
+│   │   │   ├── cmsis_gcc.h
+│   │   │   ├── cmsis_iccarm.h
+│   │   │   ├── cmsis_version.h
+│   │   │   ├── core_armv81mml.h
+│   │   │   ├── core_armv8mbl.h
+│   │   │   ├── core_armv8mml.h
+│   │   │   ├── core_cm0.h
+│   │   │   ├── core_cm0plus.h
+│   │   │   ├── core_cm1.h
+│   │   │   ├── core_cm23.h
+│   │   │   ├── core_cm3.h
+│   │   │   ├── core_cm33.h
+│   │   │   ├── core_cm35p.h
+│   │   │   ├── core_cm4.h
+│   │   │   ├── core_cm55.h
+│   │   │   ├── core_cm7.h
+│   │   │   ├── core_cm85.h
+│   │   │   ├── core_sc000.h
+│   │   │   ├── core_sc300.h
+│   │   │   ├── core_starmc1.h
+│   │   │   ├── mpu_armv7.h
+│   │   │   ├── mpu_armv8.h
+│   │   │   ├── pac_armv81.h
+│   │   │   ├── pmu_armv8.h
+│   │   │   └── tz_context.h
+│   │   └── LICENSE.txt
+│   └── STM32H7RSxx_HAL_Driver
+│       ├── Inc
+│       │   ├── Legacy
+│       │   │   └── stm32_hal_legacy.h
+│       │   ├── stm32h7rsxx_hal.h
+│       │   ├── stm32h7rsxx_hal_cortex.h
+│       │   ├── stm32h7rsxx_hal_def.h
+│       │   ├── stm32h7rsxx_hal_dma.h
+│       │   ├── stm32h7rsxx_hal_dma2d.h
+│       │   ├── stm32h7rsxx_hal_dma_ex.h
+│       │   ├── stm32h7rsxx_hal_exti.h
+│       │   ├── stm32h7rsxx_hal_flash.h
+│       │   ├── stm32h7rsxx_hal_flash_ex.h
+│       │   ├── stm32h7rsxx_hal_gpio.h
+│       │   ├── stm32h7rsxx_hal_gpio_ex.h
+│       │   ├── stm32h7rsxx_hal_ltdc.h
+│       │   ├── stm32h7rsxx_hal_ltdc_ex.h
+│       │   ├── stm32h7rsxx_hal_nand.h
+│       │   ├── stm32h7rsxx_hal_nor.h
+│       │   ├── stm32h7rsxx_hal_pcd.h
+│       │   ├── stm32h7rsxx_hal_pcd_ex.h
+│       │   ├── stm32h7rsxx_hal_pwr.h
+│       │   ├── stm32h7rsxx_hal_pwr_ex.h
+│       │   ├── stm32h7rsxx_hal_rcc.h
+│       │   ├── stm32h7rsxx_hal_rcc_ex.h
+│       │   ├── stm32h7rsxx_hal_sd.h
+│       │   ├── stm32h7rsxx_hal_sd_ex.h
+│       │   ├── stm32h7rsxx_hal_sdram.h
+│       │   ├── stm32h7rsxx_hal_spi.h
+│       │   ├── stm32h7rsxx_hal_spi_ex.h
+│       │   ├── stm32h7rsxx_hal_sram.h
+│       │   ├── stm32h7rsxx_hal_tim.h
+│       │   ├── stm32h7rsxx_hal_tim_ex.h
+│       │   ├── stm32h7rsxx_ll_bus.h
+│       │   ├── stm32h7rsxx_ll_cortex.h
+│       │   ├── stm32h7rsxx_ll_crs.h
+│       │   ├── stm32h7rsxx_ll_dlyb.h
+│       │   ├── stm32h7rsxx_ll_dma.h
+│       │   ├── stm32h7rsxx_ll_dma2d.h
+│       │   ├── stm32h7rsxx_ll_exti.h
+│       │   ├── stm32h7rsxx_ll_fmc.h
+│       │   ├── stm32h7rsxx_ll_gpio.h
+│       │   ├── stm32h7rsxx_ll_pwr.h
+│       │   ├── stm32h7rsxx_ll_rcc.h
+│       │   ├── stm32h7rsxx_ll_sdmmc.h
+│       │   ├── stm32h7rsxx_ll_system.h
+│       │   ├── stm32h7rsxx_ll_usb.h
+│       │   └── stm32h7rsxx_ll_utils.h
+│       ├── LICENSE.txt
+│       └── Src
+│           ├── stm32h7rsxx_hal.c
+│           ├── stm32h7rsxx_hal_cortex.c
+│           ├── stm32h7rsxx_hal_dma.c
+│           ├── stm32h7rsxx_hal_dma2d.c
+│           ├── stm32h7rsxx_hal_dma_ex.c
+│           ├── stm32h7rsxx_hal_exti.c
+│           ├── stm32h7rsxx_hal_flash.c
+│           ├── stm32h7rsxx_hal_flash_ex.c
+│           ├── stm32h7rsxx_hal_gpio.c
+│           ├── stm32h7rsxx_hal_ltdc.c
+│           ├── stm32h7rsxx_hal_ltdc_ex.c
+│           ├── stm32h7rsxx_hal_nand.c
+│           ├── stm32h7rsxx_hal_nor.c
+│           ├── stm32h7rsxx_hal_pcd.c
+│           ├── stm32h7rsxx_hal_pcd_ex.c
+│           ├── stm32h7rsxx_hal_pwr.c
+│           ├── stm32h7rsxx_hal_pwr_ex.c
+│           ├── stm32h7rsxx_hal_rcc.c
+│           ├── stm32h7rsxx_hal_rcc_ex.c
+│           ├── stm32h7rsxx_hal_sd.c
+│           ├── stm32h7rsxx_hal_sd_ex.c
+│           ├── stm32h7rsxx_hal_sdram.c
+│           ├── stm32h7rsxx_hal_spi.c
+│           ├── stm32h7rsxx_hal_spi_ex.c
+│           ├── stm32h7rsxx_hal_sram.c
+│           ├── stm32h7rsxx_hal_tim.c
+│           ├── stm32h7rsxx_hal_tim_ex.c
+│           ├── stm32h7rsxx_ll_dlyb.c
+│           ├── stm32h7rsxx_ll_fmc.c
+│           ├── stm32h7rsxx_ll_sdmmc.c
+│           └── stm32h7rsxx_ll_usb.c
+├── DshanMCU_H7R_LVGL_Desktop_Appli.elf
+├── ExtMemLoader.stldr
+├── MiddlewareMy
+│   └── usbx
+│       ├── CMakeLists.txt
+│       ├── CODE_OF_CONDUCT.md
+│       ├── CONTRIBUTING.md
+│       ├── LICENSE.md
+│       ├── LICENSED-HARDWARE.txt
+│       ├── README.md
+│       ├── SECURITY.md
+│       ├── app
+│       │   ├── app_usbx_device.c
+│       │   ├── app_usbx_device.h
+│       │   ├── ux_device_cdc_acm.c
+│       │   ├── ux_device_cdc_acm.h
+│       │   ├── ux_device_descriptors.c
+│       │   ├── ux_device_descriptors.h
+│       │   ├── ux_stm32_config.h
+│       │   └── ux_user.h
+│       ├── common
+│       │   ├── CMakeLists.txt
+│       │   ├── core
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── inc
+│       │   │   │   ├── ux_api.h
+│       │   │   │   ├── ux_class_audio10.h
+│       │   │   │   ├── ux_class_audio20.h
+│       │   │   │   ├── ux_dcd_sim_slave.h
+│       │   │   │   ├── ux_device_class_dpump.h
+│       │   │   │   ├── ux_device_stack.h
+│       │   │   │   ├── ux_hcd_sim_host.h
+│       │   │   │   ├── ux_host_class_dpump.h
+│       │   │   │   ├── ux_host_stack.h
+│       │   │   │   ├── ux_system.h
+│       │   │   │   ├── ux_user_sample.h
+│       │   │   │   └── ux_utility.h
+│       │   │   └── src
+│       │   │       ├── ux_device_stack_alternate_setting_get.c
+│       │   │       ├── ux_device_stack_alternate_setting_set.c
+│       │   │       ├── ux_device_stack_class_register.c
+│       │   │       ├── ux_device_stack_class_unregister.c
+│       │   │       ├── ux_device_stack_clear_feature.c
+│       │   │       ├── ux_device_stack_configuration_get.c
+│       │   │       ├── ux_device_stack_configuration_set.c
+│       │   │       ├── ux_device_stack_control_request_process.c
+│       │   │       ├── ux_device_stack_descriptor_send.c
+│       │   │       ├── ux_device_stack_disconnect.c
+│       │   │       ├── ux_device_stack_endpoint_stall.c
+│       │   │       ├── ux_device_stack_get_status.c
+│       │   │       ├── ux_device_stack_host_wakeup.c
+│       │   │       ├── ux_device_stack_initialize.c
+│       │   │       ├── ux_device_stack_interface_delete.c
+│       │   │       ├── ux_device_stack_interface_get.c
+│       │   │       ├── ux_device_stack_interface_set.c
+│       │   │       ├── ux_device_stack_interface_start.c
+│       │   │       ├── ux_device_stack_microsoft_extension_register.c
+│       │   │       ├── ux_device_stack_set_feature.c
+│       │   │       ├── ux_device_stack_tasks_run.c
+│       │   │       ├── ux_device_stack_transfer_abort.c
+│       │   │       ├── ux_device_stack_transfer_all_request_abort.c
+│       │   │       ├── ux_device_stack_transfer_request.c
+│       │   │       ├── ux_device_stack_transfer_run.c
+│       │   │       ├── ux_device_stack_uninitialize.c
+│       │   │       ├── ux_system_error_handler.c
+│       │   │       ├── ux_system_initialize.c
+│       │   │       ├── ux_system_tasks_run.c
+│       │   │       ├── ux_system_uninitialize.c
+│       │   │       ├── ux_utility_descriptor_parse.c
+│       │   │       ├── ux_utility_long_get.c
+│       │   │       ├── ux_utility_long_put.c
+│       │   │       ├── ux_utility_memory_allocate.c
+│       │   │       ├── ux_utility_memory_allocate_mulc_safe.c
+│       │   │       ├── ux_utility_memory_byte_pool_create.c
+│       │   │       ├── ux_utility_memory_byte_pool_search.c
+│       │   │       ├── ux_utility_memory_compare.c
+│       │   │       ├── ux_utility_memory_copy.c
+│       │   │       ├── ux_utility_memory_free.c
+│       │   │       ├── ux_utility_memory_free_block_best_get.c
+│       │   │       ├── ux_utility_memory_set.c
+│       │   │       ├── ux_utility_short_get.c
+│       │   │       └── ux_utility_string_length_check.c
+│       │   ├── usbx_device_classes
+│       │   │   ├── CMakeLists.txt
+│       │   │   ├── inc
+│       │   │   │   ├── ux_device_class_audio.h
+│       │   │   │   ├── ux_device_class_audio10.h
+│       │   │   │   ├── ux_device_class_audio20.h
+│       │   │   │   ├── ux_device_class_ccid.h
+│       │   │   │   ├── ux_device_class_cdc_acm.h
+│       │   │   │   ├── ux_device_class_cdc_ecm.h
+│       │   │   │   ├── ux_device_class_dfu.h
+│       │   │   │   ├── ux_device_class_hid.h
+│       │   │   │   ├── ux_device_class_pima.h
+│       │   │   │   ├── ux_device_class_printer.h
+│       │   │   │   ├── ux_device_class_rndis.h
+│       │   │   │   ├── ux_device_class_storage.h
+│       │   │   │   └── ux_device_class_video.h
+│       │   │   └── src
+│       │   │       ├── ux_device_class_cdc_acm_activate.c
+│       │   │       ├── ux_device_class_cdc_acm_bulkin_thread.c
+│       │   │       ├── ux_device_class_cdc_acm_bulkout_thread.c
+│       │   │       ├── ux_device_class_cdc_acm_control_request.c
+│       │   │       ├── ux_device_class_cdc_acm_deactivate.c
+│       │   │       ├── ux_device_class_cdc_acm_entry.c
+│       │   │       ├── ux_device_class_cdc_acm_initialize.c
+│       │   │       ├── ux_device_class_cdc_acm_ioctl.c
+│       │   │       ├── ux_device_class_cdc_acm_read.c
+│       │   │       ├── ux_device_class_cdc_acm_read_run.c
+│       │   │       ├── ux_device_class_cdc_acm_tasks_run.c
+│       │   │       ├── ux_device_class_cdc_acm_unitialize.c
+│       │   │       ├── ux_device_class_cdc_acm_write.c
+│       │   │       ├── ux_device_class_cdc_acm_write_run.c
+│       │   │       ├── ux_device_class_cdc_acm_write_with_callback.c
+│       │   │       ├── ux_device_class_cdc_ecm_activate.c
+│       │   │       ├── ux_device_class_cdc_ecm_bulkin_thread.c
+│       │   │       ├── ux_device_class_cdc_ecm_bulkout_thread.c
+│       │   │       ├── ux_device_class_cdc_ecm_change.c
+│       │   │       ├── ux_device_class_cdc_ecm_control_request.c
+│       │   │       ├── ux_device_class_cdc_ecm_deactivate.c
+│       │   │       ├── ux_device_class_cdc_ecm_entry.c
+│       │   │       ├── ux_device_class_cdc_ecm_initialize.c
+│       │   │       ├── ux_device_class_cdc_ecm_interrupt_thread.c
+│       │   │       ├── ux_device_class_cdc_ecm_uninitialize.c
+│       │   │       └── ux_device_class_cdc_ecm_write.c
+│       │   └── usbx_stm32_device_controllers
+│       │       ├── readme.txt
+│       │       ├── ux_dcd_stm32.h
+│       │       ├── ux_dcd_stm32_callback.c
+│       │       ├── ux_dcd_stm32_endpoint_create.c
+│       │       ├── ux_dcd_stm32_endpoint_destroy.c
+│       │       ├── ux_dcd_stm32_endpoint_reset.c
+│       │       ├── ux_dcd_stm32_endpoint_stall.c
+│       │       ├── ux_dcd_stm32_endpoint_status.c
+│       │       ├── ux_dcd_stm32_frame_number_get.c
+│       │       ├── ux_dcd_stm32_function.c
+│       │       ├── ux_dcd_stm32_initialize.c
+│       │       ├── ux_dcd_stm32_initialize_complete.c
+│       │       ├── ux_dcd_stm32_interrupt_handler.c
+│       │       ├── ux_dcd_stm32_transfer_abort.c
+│       │       ├── ux_dcd_stm32_transfer_request.c
+│       │       ├── ux_dcd_stm32_transfer_run.c
+│       │       └── ux_dcd_stm32_uninitialize.c
+│       ├── docs
+│       │   ├── deps.png
+│       │   └── usbx-features.png
+│       ├── ports
+│       │   └── generic
+│       │       └── inc
+│       │           └── ux_port.h
+│       └── st_readme.txt
+├── build.sh
+├── gcc-arm-none-eabi.cmake
+├── my_lvgl_app5.ioc
+├── openocd.cfg
+└── tree.txt
+
+34 directories, 272 files

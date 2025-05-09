@@ -1,0 +1,36 @@
+-mcpu=cortex-m7 
+-std=gnu11 
+-DUSE_HAL_DRIVER 
+-DSTM32H7R7xx 
+-DLV_LVGL_H_INCLUDE_SIMPLE 
+-DLV_100ASK_GENERIC_UI_CONF_INCLUDE_SIMPLE 
+-DUX_INCLUDE_USER_DEFINE_FILE 
+-DLV_CONF_INCLUDE_SIMPLE 
+-c -I../Core/Inc 
+-I../../Drivers/STM32H7RSxx_HAL_Driver/Inc 
+-I../../Drivers/STM32H7RSxx_HAL_Driver/Inc/Legacy 
+-I../../Drivers/CMSIS/Device/ST/STM32H7RSxx/Include 
+-I../../Drivers/CMSIS/Include 
+-I../Middlewares_100ask 
+-I../Middlewares_100ask/lv_lib_100ask 
+-I../Middlewares_100ask/DshanMCU_H7R_Driver 
+-I../Middlewares_100ask/lv_100ask_ui/lv_100ask_generic_ui
+-I../FATFS/Target 
+-I../FATFS/App 
+-I../../Middlewares/Third_Party/FatFs/source 
+-I../../Middlewares/Third_Party/FatFs/source/drivers/sd 
+-I../../Middlewares/Third_Party/FatFs/source/drivers/template 
+-I../Middlewares_100ask/usbx/app 
+-I../Middlewares_100ask/usbx/common/core/inc 
+-I../Middlewares_100ask/usbx/ports/generic/inc 
+-I../Middlewares_100ask/usbx/common/usbx_device_classes/inc 
+-I../Middlewares_100ask/usbx/common/usbx_stm32_device_controllers 
+-I../../../lib/lvgl -O2 -ffunction-sections 
+-fdata-sections 
+-Wall 
+-fstack-usage 
+-fcyclomatic-complexity 
+--specs=nano.specs 
+-mfpu=fpv5-d16 
+-mfloat-abi=hard 
+-mthumb

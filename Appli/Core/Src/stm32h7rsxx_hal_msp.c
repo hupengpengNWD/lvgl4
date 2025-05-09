@@ -69,6 +69,15 @@ void HAL_MspInit(void)
 
   /* System interrupt init*/
 
+  /* Enable USB Voltage detector */
+  if(HAL_PWREx_EnableUSBVoltageDetector() != HAL_OK)
+  {
+   /* Initialization error */
+   Error_Handler();
+  }
+
+  //HAL_PWREx_EnableUSBReg(); sul
+
   /* USER CODE BEGIN MspInit 1 */
 
   /* USER CODE END MspInit 1 */
