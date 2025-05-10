@@ -18,6 +18,9 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "flash.h"
+#include "i2c.h"
+#include "ltdc.h"
 #include "tim.h"
 #include "usb_otg.h"
 #include "gpio.h"
@@ -25,6 +28,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "ux_device_cdc_acm.h"
+#include "gt9xx.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,16 +70,16 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+  HAL_StatusTypeDef err;
   /* USER CODE END 1 */
 
   /* Enable the CPU Cache */
 
   /* Enable I-Cache---------------------------------------------------------*/
-  SCB_EnableICache();
+  // SCB_EnableICache();
 
   /* Enable D-Cache---------------------------------------------------------*/
-  SCB_EnableDCache();
+  // SCB_EnableDCache();
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -97,20 +101,63 @@ int main(void)
   MX_GPIO_Init();
   MX_USB_OTG_FS_PCD_Init();
   MX_TIM2_Init();
+  MX_LTDC_Init();
+  MX_FLASH_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+  drv_i2c_touchpad_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  uint16_t x = 0xFFFF;
+  uint16_t y = 0xFFFF;
+  uint16_t *fb_addr = (uint16_t*) ((uint32_t) 0xC0000000);
+
   while (1)
   {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
-    ux_device_cdc_acm_printf("LCD BL OFF!\n\r");
-    HAL_Delay(1000);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
-    ux_device_cdc_acm_printf("LCD BL ON!\r\n");
-    HAL_Delay(1000);
+    // HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+    // ux_device_cdc_acm_printf("LCD BL OFF!\n\r");
+    // HAL_Delay(1000);
+    // HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+    // ux_device_cdc_acm_printf("LCD BL ON!\r\n");
+    // HAL_Delay(1000);
+
+	err = touchpad_is_touched();
+	if (HAL_OK == err) {
+		/* reset interrupt flag */
+		touchpad_get_pos(&x, &y, 0);
+		ux_device_cdc_acm_printf("x:%d, y:%d\n", x, y);
+	}
+
+	if(y <= 160)
+	{
+		//SCB_CleanInvalidateDCache();
+		while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
+		LTDC_LCD_Fill(fb_addr, (uint16_t)0xF800, (uint32_t)480*480*2);
+		ux_device_cdc_acm_printf("%s\n", "LCD COLOR RED!");
+	}
+	else if((y > 160) && (y <= 320))
+	{
+		//SCB_CleanInvalidateDCache();
+		while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
+		LTDC_LCD_Fill(fb_addr, (uint16_t)0x07E0, (uint32_t)480*480*2);
+		ux_device_cdc_acm_printf("%s\n", "LCD COLOR GREEN!");
+	}
+
+	else if((y > 320) && (y <= 480))
+	{
+		//SCB_CleanInvalidateDCache();
+		while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
+		LTDC_LCD_Fill(fb_addr, (uint16_t)0x001F, (uint32_t)480*480*2);
+		ux_device_cdc_acm_printf("%s\n", "LCD COLOR BLUE!");
+	}
+
+	x = 0xFFFF;
+	y = 0xFFFF;
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

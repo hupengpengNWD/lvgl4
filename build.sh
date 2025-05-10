@@ -31,23 +31,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# # 使用 compiledb 生成 compile_commands.json
-# echo "Generating compile_commands.json with compiledb..."
-# compiledb -n make
-# if [ $? -ne 0 ]; then
-#     echo "Error: compiledb failed to generate compile_commands.json!"
-#     exit 1
-# fi
-
-# # 检查是否生成 compile_commands.json
-# if [ ! -f compile_commands.json ]; then
-#     echo "Error: compile_commands.json was not generated!"
-#     exit 1
-# fi
-
-# # 将 compile_commands.json 复制到项目根目录（便于 clangd 查找）
-# cp compile_commands.json ..
-
 # 编译项目
 echo "Building project..."
 cmake --build . --config $BUILD_TYPE

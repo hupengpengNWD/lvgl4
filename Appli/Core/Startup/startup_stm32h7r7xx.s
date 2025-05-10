@@ -59,7 +59,6 @@ Reset_Handler:
   mov   sp, r0          /* set stack pointer */
 /* Call the clock system initialization function.*/
   bl  SystemInit
-  
 #if 0
 /* Copy the data segment initializers from flash to SRAM */
   ldr r0, =_sdata
@@ -77,8 +76,7 @@ LoopCopyDataInit:
   adds r4, r0, r3
   cmp r4, r1
   bcc CopyDataInit
-#endif
-
+#endif 
 /* Zero fill the bss segment. */
   ldr r2, =_sbss
   ldr r4, =_ebss

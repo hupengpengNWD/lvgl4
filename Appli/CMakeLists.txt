@@ -64,11 +64,17 @@ enable_language(C ASM)
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/app
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/core/inc
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/usbx_device_classes/inc
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/usbx_stm32_device_controllers
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/ports/generic/inc
+
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/gt9xx
+
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd_4inches_rgb
+
 )
 
 # Add sources to executable
@@ -151,6 +157,10 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/usbx_stm32_device_controllers/ux_dcd_stm32_transfer_request.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/usbx_stm32_device_controllers/ux_dcd_stm32_transfer_run.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/usbx_stm32_device_controllers/ux_dcd_stm32_uninitialize.c
+
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/gt9xx/gt9xx.c
+
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd_4inches_rgb/rgb_lcd_init.c
 )
 ###########################################################################################################################################################################################################################
 
