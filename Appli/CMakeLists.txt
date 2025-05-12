@@ -15,7 +15,6 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
-
 set(STM32_MCU_FLAGS  "-mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard " )
 
 
@@ -30,11 +29,8 @@ set(CMAKE_PROJECT_NAME ${PROJECT_ROOT_NAME})
 project(${CMAKE_PROJECT_NAME})
 add_executable(${CMAKE_PROJECT_NAME})
 
-# Include mx-generated 
 include("mx-generated.cmake")
 
-
-# In order to use CMake for cross-compiling
 set(CMAKE_CXX_COMPILER_FORCED "true") 
 
 
@@ -48,18 +44,18 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/lvgl lvgl)
 add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx usbx)
 
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE 
-    UX_INCLUDE_USER_DEFINE_FILE
+    # UX_INCLUDE_USER_DEFINE_FILE
 )
 
 enable_language(C ASM)
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     
-    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/app
-    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/core/inc
-    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/usbx_device_classes/inc
-    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/usbx_stm32_device_controllers
-    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/ports/generic/inc
+    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/app
+    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/core/inc
+    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/usbx_device_classes/inc
+    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/usbx_stm32_device_controllers
+    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/ports/generic/inc
 
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/gt9xx
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd_4inches_rgb
@@ -81,19 +77,11 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 # 链接 LVGL 和USBX 库
 target_link_libraries(${CMAKE_PROJECT_NAME} lvgl usbx)
 
-
-
-# Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined library search paths
+
 )
 
-# Add linked libraries
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined libraries
-)
 
-# Validate that STM32CubeMX code is compatible with C standard
 if((CMAKE_C_STANDARD EQUAL 90) OR (CMAKE_C_STANDARD EQUAL 99))
     message(ERROR "Generated code requires C11 or higher")
 endif()

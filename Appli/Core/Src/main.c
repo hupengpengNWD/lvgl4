@@ -125,38 +125,38 @@ int main(void)
     // ux_device_cdc_acm_printf("LCD BL ON!\r\n");
     // HAL_Delay(1000);
 
-	err = touchpad_is_touched();
-	if (HAL_OK == err) {
-		/* reset interrupt flag */
-		touchpad_get_pos(&x, &y, 0);
-		ux_device_cdc_acm_printf("x:%d, y:%d\n", x, y);
-	}
+    err = touchpad_is_touched();
+    if (HAL_OK == err) {
+      /* reset interrupt flag */
+      touchpad_get_pos(&x, &y, 0);
+      ux_device_cdc_acm_printf("x:%d, y:%d\r\n", x, y);
+    }
 
-	if(y <= 160)
-	{
-		//SCB_CleanInvalidateDCache();
-		while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
-		LTDC_LCD_Fill(fb_addr, (uint16_t)0xF800, (uint32_t)480*480*2);
-		ux_device_cdc_acm_printf("%s\n", "LCD COLOR RED!");
-	}
-	else if((y > 160) && (y <= 320))
-	{
-		//SCB_CleanInvalidateDCache();
-		while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
-		LTDC_LCD_Fill(fb_addr, (uint16_t)0x07E0, (uint32_t)480*480*2);
-		ux_device_cdc_acm_printf("%s\n", "LCD COLOR GREEN!");
-	}
+    if(y <= 160)
+    {
+      //SCB_CleanInvalidateDCache();
+      while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
+      LTDC_LCD_Fill(fb_addr, (uint16_t)0xF800, (uint32_t)480*480*2);
+      ux_device_cdc_acm_printf("%s\r\n", "LCD COLOR RED!");
+    }
+    else if((y > 160) && (y <= 320))
+    {
+      //SCB_CleanInvalidateDCache();
+      while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
+      LTDC_LCD_Fill(fb_addr, (uint16_t)0x07E0, (uint32_t)480*480*2);
+      ux_device_cdc_acm_printf("%s\r\n", "LCD COLOR GREEN!");
+    }
 
-	else if((y > 320) && (y <= 480))
-	{
-		//SCB_CleanInvalidateDCache();
-		while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
-		LTDC_LCD_Fill(fb_addr, (uint16_t)0x001F, (uint32_t)480*480*2);
-		ux_device_cdc_acm_printf("%s\n", "LCD COLOR BLUE!");
-	}
+    else if((y > 320) && (y <= 480))
+    {
+      //SCB_CleanInvalidateDCache();
+      while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
+      LTDC_LCD_Fill(fb_addr, (uint16_t)0x001F, (uint32_t)480*480*2);
+      ux_device_cdc_acm_printf("%s\r\n", "LCD COLOR BLUE!");
+    }
 
-	x = 0xFFFF;
-	y = 0xFFFF;
+    x = 0xFFFF;
+    y = 0xFFFF;
 
     /* USER CODE END WHILE */
 
