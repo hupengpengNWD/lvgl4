@@ -33,20 +33,122 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 # 并且只更换基内容只包含础组建，不包含demo、examples和ThorVG
 
 file(GLOB SOURCES
+
+
+    ${LVGL_ROOT_DIR}/src/*.c
     ${LVGL_ROOT_DIR}/src/core/*.c
-    ${LVGL_ROOT_DIR}/src/draw/*.c
-    ${LVGL_ROOT_DIR}/src/draw/sw/*.c
-    ${LVGL_ROOT_DIR}/src/draw/stm32_dma2d/*.c
-    ${LVGL_ROOT_DIR}/src/extra/*.c
-    ${LVGL_ROOT_DIR}/src/font/*.c
-    ${LVGL_ROOT_DIR}/src/hal/*.c
-    ${LVGL_ROOT_DIR}/src/misc/*.c
-    ${LVGL_ROOT_DIR}/src/widgets/*.c
-    ${LVGL_ROOT_DIR}/src/libs/*.c
-    ${LVGL_ROOT_DIR}/src/layouts/*.c
-    ${LVGL_ROOT_DIR}/src/themes/*.c
     ${LVGL_ROOT_DIR}/src/display/*.c
+    ${LVGL_ROOT_DIR}/src/draw/*.c
+    # ${LVGL_ROOT_DIR}/src/draw/nxp/pxp/*.c
+    # ${LVGL_ROOT_DIR}/src/draw/nxp/vglite/*.c
+    # ${LVGL_ROOT_DIR}/src/draw/renesas/dave2d/*.c
+    # ${LVGL_ROOT_DIR}/src/draw/sdl/*.c
+    ${LVGL_ROOT_DIR}/src/draw/sw/*.c
+    ${LVGL_ROOT_DIR}/src/draw/sw/blend/*.c
+    ${LVGL_ROOT_DIR}/src/draw/sw/blend/arm2d/*.c
+    ${LVGL_ROOT_DIR}/src/draw/sw/blend/helium/*.c
+    ${LVGL_ROOT_DIR}/src/draw/sw/blend/neon/*.c
+    ${LVGL_ROOT_DIR}/src/draw/vg_lite/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/display/drm/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/display/fb/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/display/ili9341/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/display/lcd/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/display/renesas_glcdc/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/display/st7735/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/display/st7789/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/display/st7796/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/display/tft_espi/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/evdev/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/glfw/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/libinput/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/nuttx/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/qnx/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/sdl/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/wayland/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/windows/*.c
+    # ${LVGL_ROOT_DIR}/src/drivers/x11/*.c
+    ${LVGL_ROOT_DIR}/src/font/*.c
     ${LVGL_ROOT_DIR}/src/indev/*.c
+    ${LVGL_ROOT_DIR}/src/layouts/*.c
+    ${LVGL_ROOT_DIR}/src/layouts/flex/*.c
+    ${LVGL_ROOT_DIR}/src/layouts/grid/*.c
+    ${LVGL_ROOT_DIR}/src/libs/*.c
+    ${LVGL_ROOT_DIR}/src/libs/barcode/*.c
+    ${LVGL_ROOT_DIR}/src/libs/bin_decoder/*.c
+    ${LVGL_ROOT_DIR}/src/libs/bmp/*.c
+    ${LVGL_ROOT_DIR}/src/libs/ffmpeg/*.c
+    ${LVGL_ROOT_DIR}/src/libs/freetype/*.c
+    ${LVGL_ROOT_DIR}/src/libs/fsdrv/*.c
+    ${LVGL_ROOT_DIR}/src/libs/gif/*.c
+    ${LVGL_ROOT_DIR}/src/libs/libjpeg_turbo/*.c
+    ${LVGL_ROOT_DIR}/src/libs/libpng/*.c
+    ${LVGL_ROOT_DIR}/src/libs/lodepng/*.c
+    ${LVGL_ROOT_DIR}/src/libs/lz4/*.c
+    ${LVGL_ROOT_DIR}/src/libs/qrcode/*.c
+    ${LVGL_ROOT_DIR}/src/libs/rle/*.c
+    ${LVGL_ROOT_DIR}/src/libs/rlottie/*.c
+    ${LVGL_ROOT_DIR}/src/libs/thorvg/*.c
+    ${LVGL_ROOT_DIR}/src/libs/tiny_ttf/*.c
+    ${LVGL_ROOT_DIR}/src/libs/tjpgd/*.c
+    ${LVGL_ROOT_DIR}/src/misc/*.c
+    ${LVGL_ROOT_DIR}/src/misc/cache/*.c
+    ${LVGL_ROOT_DIR}/src/osal/*.c
+    ${LVGL_ROOT_DIR}/src/others/*.c
+    ${LVGL_ROOT_DIR}/src/others/file_explorer/*.c
+    ${LVGL_ROOT_DIR}/src/others/fragment/*.c
+    ${LVGL_ROOT_DIR}/src/others/gridnav/*.c
+    ${LVGL_ROOT_DIR}/src/others/ime/*.c
+    ${LVGL_ROOT_DIR}/src/others/imgfont/*.c
+    ${LVGL_ROOT_DIR}/src/others/monkey/*.c
+    ${LVGL_ROOT_DIR}/src/others/observer/*.c
+    ${LVGL_ROOT_DIR}/src/others/snapshot/*.c
+    ${LVGL_ROOT_DIR}/src/others/sysmon/*.c
+    ${LVGL_ROOT_DIR}/src/others/vg_lite_tvg/*.c
+    ${LVGL_ROOT_DIR}/src/stdlib/*.c
+    ${LVGL_ROOT_DIR}/src/stdlib/builtin/*.c
+    ${LVGL_ROOT_DIR}/src/stdlib/clib/*.c
+    ${LVGL_ROOT_DIR}/src/stdlib/micropython/*.c
+    ${LVGL_ROOT_DIR}/src/stdlib/rtthread/*.c
+    ${LVGL_ROOT_DIR}/src/themes/*.c
+    ${LVGL_ROOT_DIR}/src/themes/default/*.c
+    ${LVGL_ROOT_DIR}/src/themes/mono/*.c
+    ${LVGL_ROOT_DIR}/src/themes/simple/*.c
+    ${LVGL_ROOT_DIR}/src/tick/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/animimage/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/arc/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/bar/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/button/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/buttonmatrix/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/calendar/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/canvas/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/chart/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/checkbox/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/dropdown/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/image/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/imagebutton/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/keyboard/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/label/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/led/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/line/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/list/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/lottie/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/menu/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/msgbox/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/objx_templ/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/property/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/roller/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/scale/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/slider/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/span/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/spinbox/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/spinner/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/switch/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/table/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/tabview/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/textarea/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/tileview/*.c
+    ${LVGL_ROOT_DIR}/src/widgets/win/*.c
     ${LVGL_ROOT_DIR}/src/*.S
 )
 # 禁用 ThorVG（C++ 文件，可能不兼容）
@@ -172,14 +274,24 @@ install(
   DESTINATION "${LIB_INSTALL_DIR}/pkgconfig/")
 
 # Install library
+# set_target_properties(
+#   lvgl
+#   PROPERTIES OUTPUT_NAME lvgl
+#              VERSION ${LVGL_VERSION}
+#              SOVERSION ${LVGL_SOVERSION}
+#              ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+#              LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+#              RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+#              PUBLIC_HEADER "${LVGL_PUBLIC_HEADERS}")
+
 set_target_properties(
   lvgl
   PROPERTIES OUTPUT_NAME lvgl
              VERSION ${LVGL_VERSION}
              SOVERSION ${LVGL_SOVERSION}
-             ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-             LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-             RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+             ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+             LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+             RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
              PUBLIC_HEADER "${LVGL_PUBLIC_HEADERS}")
 
 install(

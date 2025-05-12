@@ -44,26 +44,18 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/lvgl lvgl)
 add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx usbx)
 
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE 
-    # UX_INCLUDE_USER_DEFINE_FILE
+
 )
 
 enable_language(C ASM)
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     
-    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/app
-    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/core/inc
-    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/usbx_device_classes/inc
-    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/common/usbx_stm32_device_controllers
-    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx/ports/generic/inc
 
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/gt9xx
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd_4inches_rgb
 
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy
-    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lvgl
-    # ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lvgl/src
-
 )
 
 

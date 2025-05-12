@@ -29,6 +29,7 @@
 /* USER CODE BEGIN Includes */
 #include "ux_device_cdc_acm.h"
 #include "gt9xx.h"
+#include "lvgl.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -107,6 +108,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
   drv_i2c_touchpad_init();
+  lv_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
