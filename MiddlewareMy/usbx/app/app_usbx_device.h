@@ -33,7 +33,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "main.h"
+#include "ux_app_config.h"
 #include "ux_system.h"
 #include "ux_utility.h"
 #include "ux_device_stack.h"

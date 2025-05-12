@@ -14,7 +14,6 @@ fi
 # 默认构建类型为 Debug
 BUILD_TYPE=${1:-Debug}
 
-
 # 编译工程
 echo "Building project in $BUILD_TYPE mode..."
 mkdir -p build
@@ -23,9 +22,13 @@ cd build
 # 清理现有构建，确保重新编译
 rm -rf *
 
+# 确认 CMake 版本
+echo "Using CMake version:"
+/opt/homebrew/bin/cmake --version
+
 # 生成 CMake 构建系统（使用 Unix Makefiles）
 echo "Generating CMake build system with Unix Makefiles..."
-cmake -S .. -B . -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE=../gcc-arm-none-eabi.cmake
+/opt/homebrew/bin/cmake -S .. -B . -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE=../gcc-arm-none-eabi.cmake
 if [ $? -ne 0 ]; then
     echo "CMake configuration failed! Please check if ../gcc-arm-none-eabi.cmake exists."
     exit 1
@@ -33,7 +36,7 @@ fi
 
 # 编译项目
 echo "Building project..."
-cmake --build . --config $BUILD_TYPE
+/opt/homebrew/bin/cmake --build . --config $BUILD_TYPE
 if [ $? -ne 0 ]; then
     echo "Build failed!"
     exit 1
