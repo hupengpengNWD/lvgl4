@@ -31,7 +31,8 @@
 #include "ux_device_cdc_acm.h"
 #include "gt9xx.h"
 #include "lvgl.h"
-#include <src/misc/lv_timer.h>
+#include "lv_port_disp.h"
+// #include <src/misc/lv_timer.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,6 +67,16 @@ void my_log_cb(lv_log_level_t level, const char * buf)
 {
 	ux_device_cdc_acm_printf("%s", buf);
 }
+
+static void anim_x_cb(void * var, int32_t v)
+{
+    lv_obj_set_x(var, v);
+}
+
+static void anim_size_cb(void * var, int32_t v)
+{
+    lv_obj_set_size(var, v, v);
+}
 /* USER CODE END 0 */
 
 /**
@@ -82,10 +93,10 @@ int main(void)
   /* Enable the CPU Cache */
 
   /* Enable I-Cache---------------------------------------------------------*/
-  // SCB_EnableICache();
+  SCB_EnableICache();
 
   /* Enable D-Cache---------------------------------------------------------*/
-  // SCB_EnableDCache();
+  SCB_EnableDCache();
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -114,8 +125,62 @@ int main(void)
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
   drv_i2c_touchpad_init();
   lv_init();
+  lv_tick_set_cb(HAL_GetTick);
+  lv_delay_set_cb(HAL_Delay);
+  lv_port_disp_init();
   lv_log_register_print_cb(my_log_cb);
   LV_LOG_USER("LV_LOG TEST!");
+
+  /* ----测试按钮界面------------ */
+ #if 0 
+  lv_obj_t * label;
+
+  lv_obj_t * btn1 = lv_button_create(lv_screen_active());
+  //lv_obj_add_event_cb(btn1, event_handler, LV_EVENT_ALL, NULL);
+  lv_obj_align(btn1, LV_ALIGN_CENTER, 0, -40);
+  lv_obj_remove_flag(btn1, LV_OBJ_FLAG_PRESS_LOCK);
+
+  label = lv_label_create(btn1);
+  lv_label_set_text(label, "Button");
+  lv_obj_center(label);
+
+  lv_obj_t * btn2 = lv_button_create(lv_screen_active());
+  //lv_obj_add_event_cb(btn2, event_handler, LV_EVENT_ALL, NULL);
+  lv_obj_align(btn2, LV_ALIGN_CENTER, 0, 40);
+  lv_obj_add_flag(btn2, LV_OBJ_FLAG_CHECKABLE);
+  lv_obj_set_height(btn2, LV_SIZE_CONTENT);
+
+  label = lv_label_create(btn2);
+  lv_label_set_text(label, "Toggle");
+  lv_obj_center(label);
+#endif
+  /* ---------------- */
+
+  /* ----动画测试------------ */
+#if 1
+  lv_obj_t * obj = lv_obj_create(lv_screen_active());
+  lv_obj_set_style_bg_color(obj, lv_palette_main(LV_PALETTE_RED), 0);
+  lv_obj_set_style_radius(obj, LV_RADIUS_CIRCLE, 0);
+
+  lv_obj_align(obj, LV_ALIGN_LEFT_MID, 10, 0);
+
+  lv_anim_t a;
+  lv_anim_init(&a);
+  lv_anim_set_var(&a, obj);
+  lv_anim_set_values(&a, 10, 50);
+  lv_anim_set_duration(&a, 1000);
+  lv_anim_set_playback_delay(&a, 100);
+  lv_anim_set_playback_duration(&a, 300);
+  lv_anim_set_repeat_delay(&a, 500);
+  lv_anim_set_repeat_count(&a, LV_ANIM_REPEAT_INFINITE);
+  lv_anim_set_path_cb(&a, lv_anim_path_ease_in_out);
+
+  lv_anim_set_exec_cb(&a, anim_size_cb);
+  lv_anim_start(&a);
+  lv_anim_set_exec_cb(&a, anim_x_cb);
+  lv_anim_set_values(&a, 10, 240);
+  lv_anim_start(&a);
+#endif
   /* USER CODE END 2 */
 
   /* Infinite loop */

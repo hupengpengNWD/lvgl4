@@ -1201,6 +1201,8 @@
 │   │   ├── library.json
 │   │   ├── library.properties
 │   │   ├── lv_conf_template.h
+│   │   ├── lv_port_disp.c
+│   │   ├── lv_port_disp.h
 │   │   ├── lv_version.h
 │   │   ├── lv_version.h.in
 │   │   ├── lvgl.h
@@ -3367,4 +3369,4 @@
 ├── temp.txt
 └── tree.txt
 
-350 directories, 3018 files
+350 directories, 3020 files
