@@ -33,6 +33,7 @@
 #include "lvgl.h"
 #include "lv_port_disp.h"
 #include "lv_port_indev.h"
+#include "lv_demos.h"
 // #include <src/misc/lv_timer.h>
 /* USER CODE END Includes */
 
@@ -132,9 +133,10 @@ int main(void)
   lv_port_indev_init();
   lv_log_register_print_cb(my_log_cb);
   LV_LOG_USER("LV_LOG TEST!");
+  lv_demo_widgets();
 
   /* ----测试按钮界面------------ */
- #if 1 
+ #if 0
   lv_obj_t * label;
 
   lv_obj_t * btn1 = lv_button_create(lv_screen_active());

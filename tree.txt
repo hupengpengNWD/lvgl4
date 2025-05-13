@@ -175,6 +175,10 @@
 │   │   ├── rgb_lcd_init.c
 │   │   └── rgb_lcd_init.h
 │   ├── lv_conf.h
+│   ├── lv_port_disp.c
+│   ├── lv_port_disp.h
+│   ├── lv_port_indev.c
+│   ├── lv_port_indev.h
 │   ├── lvgl
 │   │   ├── CMakeLists.txt
 │   │   ├── CMakePresets.json
@@ -1201,8 +1205,6 @@
 │   │   ├── library.json
 │   │   ├── library.properties
 │   │   ├── lv_conf_template.h
-│   │   ├── lv_port_disp.c
-│   │   ├── lv_port_disp.h
 │   │   ├── lv_version.h
 │   │   ├── lv_version.h.in
 │   │   ├── lvgl.h
@@ -3369,4 +3371,4 @@
 ├── temp.txt
 └── tree.txt
 
-350 directories, 3020 files
+350 directories, 3022 files

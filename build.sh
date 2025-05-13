@@ -36,7 +36,7 @@ fi
 
 # 编译项目
 echo "Building project..."
-/opt/homebrew/bin/cmake --build . --config $BUILD_TYPE
+/opt/homebrew/bin/cmake --build . --config $BUILD_TYPE --parallel 8
 if [ $? -ne 0 ]; then
     echo "Build failed!"
     exit 1

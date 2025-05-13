@@ -3,7 +3,7 @@ include("${CMAKE_CURRENT_LIST_DIR}/version.cmake")
 
 # 禁用示例和演示代码
 set(LV_CONF_BUILD_DISABLE_EXAMPLES ON)
-set(LV_CONF_BUILD_DISABLE_DEMOS ON)
+set(LV_CONF_BUILD_DISABLE_DEMOS OFF)
 
 # Option to define LV_LVGL_H_INCLUDE_SIMPLE, default: ON
 option(LV_LVGL_H_INCLUDE_SIMPLE
@@ -30,43 +30,19 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 # file(GLOB_RECURSE THORVG_SOURCES ${LVGL_ROOT_DIR}/src/libs/thorvg/*.cpp ${LVGL_ROOT_DIR}/src/others/vg_lite_tvg/*.cpp)
 
 # 屏蔽上面的 file(GLOB_RECURSE....，因为我的CMake不支持，换成下面的
-# 并且只更换基内容只包含础组建，不包含demo、examples和ThorVG
 
 file(GLOB SOURCES
-
 
     ${LVGL_ROOT_DIR}/src/*.c
     ${LVGL_ROOT_DIR}/src/core/*.c
     ${LVGL_ROOT_DIR}/src/display/*.c
     ${LVGL_ROOT_DIR}/src/draw/*.c
-    # ${LVGL_ROOT_DIR}/src/draw/nxp/pxp/*.c
-    # ${LVGL_ROOT_DIR}/src/draw/nxp/vglite/*.c
-    # ${LVGL_ROOT_DIR}/src/draw/renesas/dave2d/*.c
-    # ${LVGL_ROOT_DIR}/src/draw/sdl/*.c
     ${LVGL_ROOT_DIR}/src/draw/sw/*.c
     ${LVGL_ROOT_DIR}/src/draw/sw/blend/*.c
     ${LVGL_ROOT_DIR}/src/draw/sw/blend/arm2d/*.c
     ${LVGL_ROOT_DIR}/src/draw/sw/blend/helium/*.c
     ${LVGL_ROOT_DIR}/src/draw/sw/blend/neon/*.c
     ${LVGL_ROOT_DIR}/src/draw/vg_lite/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/display/drm/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/display/fb/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/display/ili9341/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/display/lcd/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/display/renesas_glcdc/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/display/st7735/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/display/st7789/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/display/st7796/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/display/tft_espi/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/evdev/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/glfw/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/libinput/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/nuttx/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/qnx/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/sdl/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/wayland/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/windows/*.c
-    # ${LVGL_ROOT_DIR}/src/drivers/x11/*.c
     ${LVGL_ROOT_DIR}/src/font/*.c
     ${LVGL_ROOT_DIR}/src/indev/*.c
     ${LVGL_ROOT_DIR}/src/layouts/*.c
@@ -150,6 +126,12 @@ file(GLOB SOURCES
     ${LVGL_ROOT_DIR}/src/widgets/tileview/*.c
     ${LVGL_ROOT_DIR}/src/widgets/win/*.c
     ${LVGL_ROOT_DIR}/src/*.S
+
+)
+
+file(GLOB DEMO_SOURCES
+    ${LVGL_ROOT_DIR}/demos/widgets/*.c
+    ${LVGL_ROOT_DIR}/demos/widgets/assets/*.c
 )
 # 禁用 ThorVG（C++ 文件，可能不兼容）
 set(LV_CONF_BUILD_DISABLE_THORVG_INTERNAL ON)

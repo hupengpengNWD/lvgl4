@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
 
-
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
@@ -56,6 +55,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd_4inches_rgb
 
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lvgl/demos
 )
 
 
@@ -69,8 +69,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 
 )
 
-# 链接 LVGL 和USBX 库
-target_link_libraries(${CMAKE_PROJECT_NAME} lvgl usbx)
+# 链接 LVGL USBX LVGL_DEMOS库
+target_link_libraries(${CMAKE_PROJECT_NAME} lvgl usbx lvgl_demos)
 
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
