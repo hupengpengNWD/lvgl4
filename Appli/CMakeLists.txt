@@ -64,6 +64,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/gt9xx/gt9xx.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd_4inches_rgb/rgb_lcd_init.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lv_port_disp.c
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lv_port_indev.c
     
 
 )

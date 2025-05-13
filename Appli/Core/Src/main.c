@@ -32,6 +32,7 @@
 #include "gt9xx.h"
 #include "lvgl.h"
 #include "lv_port_disp.h"
+#include "lv_port_indev.h"
 // #include <src/misc/lv_timer.h>
 /* USER CODE END Includes */
 
@@ -128,11 +129,12 @@ int main(void)
   lv_tick_set_cb(HAL_GetTick);
   lv_delay_set_cb(HAL_Delay);
   lv_port_disp_init();
+  lv_port_indev_init();
   lv_log_register_print_cb(my_log_cb);
   LV_LOG_USER("LV_LOG TEST!");
 
   /* ----测试按钮界面------------ */
- #if 0 
+ #if 1 
   lv_obj_t * label;
 
   lv_obj_t * btn1 = lv_button_create(lv_screen_active());
@@ -157,7 +159,7 @@ int main(void)
   /* ---------------- */
 
   /* ----动画测试------------ */
-#if 1
+#if 0
   lv_obj_t * obj = lv_obj_create(lv_screen_active());
   lv_obj_set_style_bg_color(obj, lv_palette_main(LV_PALETTE_RED), 0);
   lv_obj_set_style_radius(obj, LV_RADIUS_CIRCLE, 0);
