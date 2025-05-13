@@ -73,7 +73,8 @@ void lv_port_disp_init(void)
     // static uint8_t buf_1_1[MY_DISP_HOR_RES * 10 * BYTE_PER_PIXEL];            /*A buffer for 10 rows*/
     // lv_display_set_buffers(disp, buf_1_1, NULL, sizeof(buf_1_1), LV_DISPLAY_RENDER_MODE_PARTIAL);
     //lv_display_set_buffers(disp, (uint8_t*) ((uint32_t) 0xC0000000), NULL, (MY_DISP_HOR_RES*MY_DISP_VER_RES*BYTE_PER_PIXEL), LV_DISPLAY_RENDER_MODE_FULL);
-    lv_display_set_buffers(disp, buf_2, NULL, (MY_DISP_HOR_RES*MY_DISP_VER_RES*BYTE_PER_PIXEL), LV_DISPLAY_RENDER_MODE_DIRECT);
+    // lv_display_set_buffers(disp, buf_2, NULL, (MY_DISP_HOR_RES*MY_DISP_VER_RES*BYTE_PER_PIXEL), LV_DISPLAY_RENDER_MODE_DIRECT);
+    lv_display_set_buffers(disp, buf_1, buf_2, (MY_DISP_HOR_RES*MY_DISP_VER_RES*BYTE_PER_PIXEL), LV_DISPLAY_RENDER_MODE_DIRECT);
 
 #if 0
     /* Example 2
@@ -145,7 +146,8 @@ static void disp_flush(lv_display_t * disp_drv, const lv_area_t * area, uint8_t 
 #endif
         SCB_CleanInvalidateDCache();
         while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
-        memcpy(buf_1, buf_2, (MY_DISP_HOR_RES*MY_DISP_VER_RES*BYTE_PER_PIXEL));
+        //memcpy(buf_1, buf_2, (MY_DISP_HOR_RES*MY_DISP_VER_RES*BYTE_PER_PIXEL));
+        HAL_LTDC_SetAddress(&hltdc, (uint32_t)(lv_display_get_buf_active(lv_display_get_default())->data), LTDC_LAYER_1);
     }
 
     /*IMPORTANT!!!
