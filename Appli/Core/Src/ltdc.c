@@ -251,4 +251,39 @@ void LTDC_LCD_Fill(uint16_t * fb, uint16_t color, uint32_t length)
 		*(tmp_fb + i) = color;
 	}
 }
+
+void LTDC_DMA2D_Fill(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint32_t color)
+{
+	uint32_t psx, psy, pex, pey;
+	uint32_t timeout=0;
+	uint16_t offset;
+	uint32_t addr;
+
+	psx=sx;
+	psy=sy;
+
+	pex=ex;
+	pey=ey;
+
+	offset = LCD_100ASK_W - (pex - psx);
+	addr	= (hltdc.LayerCfg[0].FBStartAdress + (2 * (LCD_100ASK_W * psy + psx)));
+
+	DMA2D->CR 		&= ~(DMA2D_CR_START);
+	DMA2D->CR  		 = DMA2D_R2M;
+	DMA2D->OPFCCR	 = LTDC_PIXEL_FORMAT_RGB565;  // 设置颜色格式
+	DMA2D->OOR		 = offset; //  行偏移，即跳过的像素（以像素为单位）
+
+	DMA2D->OMAR		 = addr;  // 填充区域的起始内存地�?
+	DMA2D->NLR		 = ((pex - psx) << DMA2D_NLR_PL_Pos) | ((pey - psy) << DMA2D_NLR_NL_Pos);  // 设置填充区域的宽和高（单位：像素�?
+	DMA2D->OCOLR	 = color;  // 设置要填充的颜色，格式要�? DMA2D->OPFCCR 设置的颜色格式相�?
+	DMA2D->CR		|= DMA2D_CR_START; /* 启动传输 */
+
+	/* 等待DMA2D传输完成 */
+	while((DMA2D->ISR&(DMA2D_FLAG_TC)) == 0)
+	{
+		timeout++;
+		if(timeout > 0X1FFFFF) break;
+	}
+	DMA2D->IFCR 	|= DMA2D_FLAG_TC;
+}
 /* USER CODE END 1 */

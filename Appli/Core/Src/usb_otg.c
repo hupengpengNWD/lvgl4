@@ -57,7 +57,6 @@ void MX_USB_OTG_FS_PCD_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USB_OTG_FS_Init 2 */
-
   HAL_PWREx_EnableUSBVoltageDetector();
   /* Set Rx FIFO */
   HAL_PCDEx_SetRxFiFo(&hpcd_USB_OTG_FS, 0x200);

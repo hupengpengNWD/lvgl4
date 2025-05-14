@@ -76,7 +76,7 @@ LoopCopyDataInit:
   adds r4, r0, r3
   cmp r4, r1
   bcc CopyDataInit
-#endif 
+#endif
 /* Zero fill the bss segment. */
   ldr r2, =_sbss
   ldr r4, =_ebss

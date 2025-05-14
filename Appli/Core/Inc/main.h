@@ -67,6 +67,8 @@ void Error_Handler(void);
 #define RGB_LCD_INIT_CS_PIN_GPIO_Port GPIOF
 
 /* USER CODE BEGIN Private defines */
+#define LCD_100ASK_W 480
+#define LCD_100ASK_H 480
 #define RGB_LCD_INIT_SDA_PIN_Pin GPIO_PIN_14
 #define RGB_LCD_INIT_SDA_PIN_GPIO_Port GPIOF
 #define RGB_LCD_INIT_SCK_PIN_Pin GPIO_PIN_15

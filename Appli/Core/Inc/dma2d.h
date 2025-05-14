@@ -1,9 +1,9 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    ltdc.h
+  * @file    dma2d.h
   * @brief   This file contains all the function prototypes for
-  *          the ltdc.c file
+  *          the dma2d.c file
   ******************************************************************************
   * @attention
   *
@@ -18,8 +18,8 @@
   */
 /* USER CODE END Header */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __LTDC_H__
-#define __LTDC_H__
+#ifndef __DMA2D_H__
+#define __DMA2D_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,22 +32,21 @@ extern "C" {
 
 /* USER CODE END Includes */
 
-extern LTDC_HandleTypeDef hltdc;
+extern DMA2D_HandleTypeDef hdma2d;
 
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
 
-void MX_LTDC_Init(void);
+void MX_DMA2D_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-void LTDC_LCD_Fill(uint16_t * fb, uint16_t color, uint32_t length);
-void LTDC_DMA2D_Fill(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint32_t color);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __LTDC_H__ */
+#endif /* __DMA2D_H__ */
 
