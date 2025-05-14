@@ -45,13 +45,13 @@ include("mx-generated.cmake")
 # In order to use CMake for cross-compiling
 set(CMAKE_CXX_COMPILER_FORCED "true") 
 
-# 设置 lv_conf.h 路径
+# Set the path of lv_conf.h
 set(LV_CONF_PATH ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lv_conf.h CACHE STRING "Path to lv_conf.h")
 
-# 添加 LVGL 子目录
+# Add the LVGL subdirectory
 add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/lvgl lvgl)
 
-# 添加 USBX 子目录
+# Add a USBX subdirectory
 add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx usbx)
 
 # Add project symbols (macros)
@@ -66,7 +66,8 @@ enable_language(C ASM)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/gt9xx
-    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd_4inches_rgb
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/key
 
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lvgl/demos
@@ -76,9 +77,11 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/gt9xx/gt9xx.c
-    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd_4inches_rgb/rgb_lcd_init.c
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd/rgb_lcd_init.c
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/key/key_it.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lv_port_disp.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lv_port_indev.c
+
 )
 
 # Link directories setup
@@ -87,7 +90,11 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 # Add linked libraries
-target_link_libraries(${CMAKE_PROJECT_NAME} lvgl usbx lvgl_demos)
+target_link_libraries(${CMAKE_PROJECT_NAME} 
+    lvgl
+    usbx 
+    lvgl_demos
+)
 
 
 # Validate that STM32CubeMX code is compatible with C standard
