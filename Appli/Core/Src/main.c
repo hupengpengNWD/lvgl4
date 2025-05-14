@@ -68,16 +68,6 @@ void my_log_cb(lv_log_level_t level, const char * buf)
 {
 	ux_device_cdc_acm_printf("%s", buf);
 }
-
-static void anim_x_cb(void * var, int32_t v)
-{
-    lv_obj_set_x(var, v);
-}
-
-static void anim_size_cb(void * var, int32_t v)
-{
-    lv_obj_set_size(var, v, v);
-}
 /* USER CODE END 0 */
 
 /**
