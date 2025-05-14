@@ -69,12 +69,14 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 
 )
 
-# 链接 LVGL USBX LVGL_DEMOS库
-target_link_libraries(${CMAKE_PROJECT_NAME} lvgl usbx lvgl_demos)
 
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
 )
+
+# 链接 LVGL USBX LVGL_DEMOS库
+target_link_libraries(${CMAKE_PROJECT_NAME} lvgl usbx lvgl_demos)
+
 
 
 if((CMAKE_C_STANDARD EQUAL 90) OR (CMAKE_C_STANDARD EQUAL 99))

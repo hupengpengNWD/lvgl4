@@ -144,10 +144,11 @@ static void disp_flush(lv_display_t * disp_drv, const lv_area_t * area, uint8_t 
             }
         }
 #endif
-        SCB_CleanInvalidateDCache();
-        while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
-        //memcpy(buf_1, buf_2, (MY_DISP_HOR_RES*MY_DISP_VER_RES*BYTE_PER_PIXEL));
-        HAL_LTDC_SetAddress(&hltdc, (uint32_t)(lv_display_get_buf_active(lv_display_get_default())->data), LTDC_LAYER_1);
+        if(lv_display_flush_is_last(disp_drv)){
+            SCB_CleanInvalidateDCache();
+            while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS));
+            HAL_LTDC_SetAddress(&hltdc, (uint32_t)(lv_display_get_buf_active(lv_display_get_default())->data), LTDC_LAYER_1);
+        }
     }
 
     /*IMPORTANT!!!
