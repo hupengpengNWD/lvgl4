@@ -19,9 +19,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "dma2d.h"
+#include "fatfs.h"
 #include "flash.h"
 #include "i2c.h"
 #include "ltdc.h"
+#include "sdmmc.h"
 #include "tim.h"
 #include "usb_otg.h"
 #include "gpio.h"
@@ -134,6 +136,8 @@ int main(void)
   MX_DMA2D_Init();
   MX_TIM4_Init();
   MX_TIM12_Init();
+  MX_SDMMC1_SD_Init();
+  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
   drv_i2c_touchpad_init();
   lv_init();
@@ -144,10 +148,12 @@ int main(void)
   lv_log_register_print_cb(my_log_cb);
   lcd_backlight_init();
   lcd_backlight_set_value(LCD_MAX_BACKLIGHT);
-
   LV_LOG_USER("LV_LOG TEST!");
+  /* demo和滑动条调节屏幕背光亮度二选一 */
   // lv_demo_widgets();
   slider_set_backlight_init();
+  /* 文件系统读写测试 */
+  FS_FileTest();
   /* USER CODE END 2 */
 
   /* Infinite loop */
