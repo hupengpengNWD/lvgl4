@@ -68,6 +68,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/gt9xx
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/key
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/buzzer
 
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lvgl/demos
@@ -79,6 +80,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/gt9xx/gt9xx.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd/rgb_lcd_init.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/key/key_it.c
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/buzzer/passive_buzzer.c
+
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lv_port_disp.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lv_port_indev.c
 

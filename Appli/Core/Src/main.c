@@ -113,6 +113,7 @@ int main(void)
   MX_FLASH_Init();
   MX_I2C1_Init();
   MX_DMA2D_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
   drv_i2c_touchpad_init();

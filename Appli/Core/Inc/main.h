@@ -46,7 +46,9 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+#define PRESCALER_VALUE     (uint32_t)(((SystemCoreClock/2) / 1000000) - 1)
+#define PERIOD_VALUE        (uint32_t)(1000 - 1)         
+#define PULSE1_VALUE        (uint32_t)(1000 / 2) 
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
@@ -77,6 +79,8 @@ void Error_Handler(void);
 #define USER_KEY2_Pin GPIO_PIN_1
 #define USER_KEY2_GPIO_Port GPIOP
 #define USER_KEY2_EXTI_IRQn EXTI1_IRQn
+#define PASSIVE_BUZZER_Pin GPIO_PIN_13
+#define PASSIVE_BUZZER_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 #define LCD_100ASK_W 480
