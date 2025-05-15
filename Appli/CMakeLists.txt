@@ -79,6 +79,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/gt9xx/gt9xx.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd/rgb_lcd_init.c
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lcd/backlight_lcd.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/key/key_it.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/buzzer/passive_buzzer.c
 

@@ -7,6 +7,7 @@
 #include "lv_port_indev.h"
 #include "gt9xx.h"
 #include "key_it.h"
+#include "passive_buzzer.h"
 
 
 
@@ -14,7 +15,7 @@ static void touchpad_read(lv_indev_t * indev, lv_indev_data_t * data);
 static void button_read(lv_indev_t * indev, lv_indev_data_t * data);
 static int8_t button_get_pressed_id(void);
 static bool button_is_pressed(uint8_t id);
-
+static void my_click_check_timer(lv_timer_t * timer);
 
 lv_indev_t * indev_touchpad;
 lv_indev_t * indev_mouse;
@@ -54,6 +55,9 @@ void lv_port_indev_init(void)
 		{270, 220}, /*Button 3 -> x:270; y:220*/
 	};
 	lv_indev_set_button_points(indev_button, btn_points);
+
+    /* scanf user status drive buzzer */
+    lv_timer_create(my_click_check_timer, LV_DEF_REFR_PERIOD,  NULL);
   
 }
 
@@ -131,3 +135,43 @@ static bool button_is_pressed(uint8_t id)
     return key_is_pressed(id);
 }
 
+
+static void my_click_check_timer(lv_timer_t * timer)
+{
+	static uint8_t buzzer_state = 0;
+	lv_indev_state_t indev_state;
+	int32_t * encoder_user_date;
+
+	lv_indev_t * i = lv_indev_get_next(NULL);
+	if(i == NULL) return;
+
+	while(i)
+	{
+		indev_state = lv_indev_get_state(i);
+		if(indev_state == LV_INDEV_STATE_PRESSED){
+			break;
+		}	
+
+		i = lv_indev_get_next(i);
+	}
+
+	if(indev_state == LV_INDEV_STATE_PRESSED)
+	{
+		if(buzzer_state == 0)
+		{
+			buzzer_state = 1;
+			PassiveBuzzer_Control(1);
+		}
+		else	PassiveBuzzer_Control(0);
+
+	}
+	else
+	{
+		if(buzzer_state == 1)
+		{
+			buzzer_state = 0;
+			PassiveBuzzer_Control(0);
+		}
+	}
+
+}

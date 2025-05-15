@@ -34,6 +34,7 @@
 #include "lv_port_disp.h"
 #include "lv_port_indev.h"
 #include "lv_demos.h"
+#include "backlight_lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -67,6 +68,24 @@
 void my_log_cb(lv_log_level_t level, const char * buf)
 {
 	ux_device_cdc_acm_printf("%s", buf);
+}
+
+static void slider_event_cb(lv_event_t * e)
+{
+    lv_obj_t * slider = lv_event_get_target(e);
+    int32_t slider_value = (int32_t)lv_slider_get_value(slider);
+
+    lcd_backlight_set_value(slider_value);
+}
+
+static void slider_set_backlight_init(void)
+{
+	lv_obj_t * slider = lv_slider_create(lv_layer_sys());
+	lv_slider_set_range(slider, LCD_MIN_BACKLIGHT, LCD_MAX_BACKLIGHT);
+	lv_slider_set_value(slider, LCD_MAX_BACKLIGHT, LV_ANIM_OFF);
+	lv_obj_center(slider);
+
+	lv_obj_add_event_cb(slider, slider_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
 }
 /* USER CODE END 0 */
 
@@ -114,8 +133,8 @@ int main(void)
   MX_I2C1_Init();
   MX_DMA2D_Init();
   MX_TIM4_Init();
+  MX_TIM12_Init();
   /* USER CODE BEGIN 2 */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
   drv_i2c_touchpad_init();
   lv_init();
   lv_tick_set_cb(HAL_GetTick);
@@ -123,8 +142,12 @@ int main(void)
   lv_port_disp_init();
   lv_port_indev_init();
   lv_log_register_print_cb(my_log_cb);
+  lcd_backlight_init();
+  lcd_backlight_set_value(LCD_MAX_BACKLIGHT);
+
   LV_LOG_USER("LV_LOG TEST!");
-  lv_demo_widgets();
+  // lv_demo_widgets();
+  slider_set_backlight_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
