@@ -51,7 +51,10 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+/* 使用lvgl文件读写接口测试时打开的文件的名字 */
+#define FILE_NAME	"lv_fs_test.txt"
+/* 使用lvgl文件读写接口测试时打开的文件的路径 */
+#define DIR_PATH	"0:/"
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -67,11 +70,14 @@
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+/* 虚拟串口打印的回调函数 */
 void my_log_cb(lv_log_level_t level, const char * buf)
 {
 	ux_device_cdc_acm_printf("%s", buf);
 }
 
+/* 滑动条回调函数 */
 static void slider_event_cb(lv_event_t * e)
 {
     lv_obj_t * slider = lv_event_get_target(e);
@@ -80,6 +86,7 @@ static void slider_event_cb(lv_event_t * e)
     lcd_backlight_set_value(slider_value);
 }
 
+/* 滑动条控件*/
 static void slider_set_backlight_init(void)
 {
 	lv_obj_t * slider = lv_slider_create(lv_layer_sys());
@@ -89,6 +96,85 @@ static void slider_set_backlight_init(void)
 
 	lv_obj_add_event_cb(slider, slider_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
 }
+
+/* lvgl文件读接口测试 */
+static void lv_fs_read_file(char * fn)
+{
+	lv_fs_file_t f;
+	lv_fs_res_t res;
+
+	res = lv_fs_open(&f, fn, LV_FS_MODE_RD);
+
+	if(res != LV_FS_RES_OK) {
+		LV_LOG_USER("Open error! Error code: %d\r\n", res);
+		return;
+	}
+
+	uint32_t read_num;
+	uint8_t buf[100];
+
+	while (1) {
+		res = lv_fs_read(&f, buf, 100, &read_num);
+		if(res != LV_FS_RES_OK) {
+			LV_LOG_USER("Read error! Error code: %d\r\n", res);
+			break;
+		}
+		/* 将读取到数据打印出来 */
+		LV_LOG("file:%s\r\n", buf);
+
+		if (read_num != 100){
+      break;
+    }	
+      
+	}
+
+	lv_fs_close(&f);
+
+}
+
+/* lvgl文件目录读接口测试 */
+static void lv_fs_read_dir(char * path)
+{
+	lv_fs_dir_t dir;
+	lv_fs_res_t res;
+
+	res = lv_fs_dir_open(&dir, path);
+	if(res != LV_FS_RES_OK){
+		LV_LOG_USER("Open DIR error! Error code: %d\r\n", res);
+		return;
+	}
+
+	char fn[128];	// 缓冲区
+	while(1) {
+		res = lv_fs_dir_read(&dir, fn, 128);
+		if(res != LV_FS_RES_OK) {
+			LV_LOG_USER("\nRead DIR error! Error code: %d\r\n", res);
+			break;
+		}
+
+		/* 如果没有更多文件可以读取时 fn 就为空 */
+		if(strlen(fn) == 0) {
+			LV_LOG_USER("\n\nFn is empty, not more files to read.\r\n");
+			break;
+		}
+
+		LV_LOG("file name:%s\r\n", fn);
+	}
+
+	lv_fs_dir_close(&dir);
+
+}
+
+/* lvgl文件接口测试定时器 */
+static void my_lv_fs_test_timer(lv_timer_t * timer)
+{
+	// 读取文件（LVGL）
+	lv_fs_read_file(DIR_PATH FILE_NAME);
+
+	// 读取目录内容（LVGL）
+	lv_fs_read_dir(DIR_PATH);
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -149,11 +235,14 @@ int main(void)
   lcd_backlight_init();
   lcd_backlight_set_value(LCD_MAX_BACKLIGHT);
   LV_LOG_USER("LV_LOG TEST!");
+
   /* demo和滑动条调节屏幕背光亮度二选一 */
   // lv_demo_widgets();
   slider_set_backlight_init();
-  /* 文件系统读写测试 */
-  FS_FileTest();
+
+  /* 文件系统读写测试 二选一*/
+  // FS_FileTest();
+  lv_timer_create(my_lv_fs_test_timer, 3000, NULL);
   /* USER CODE END 2 */
 
   /* Infinite loop */

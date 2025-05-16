@@ -91,12 +91,12 @@ int32_t FS_FileTest(void)
 
 	uint32_t byteswritten, bytesread; /* File write/read counts */
 	uint8_t rtext[100]; /* File read buffer */
-	const uint8_t wtext[] = "This is STM32(DshanMCU-H7R) working with FatFs and uSD diskio driver"; /* File write buffer */
+	const uint8_t wtext[] = "hello world hello world hello world hello world"; /* File write buffer */
 
 	if(appli_sd_state == APPLICATION_SD_ERROR)	return -1;
 
 	/* Create and Open a new text file object with write access */
-	if(f_open(&SDFile,  "DshanMCUH7R.TXT", FA_CREATE_ALWAYS | FA_WRITE) == FR_OK)
+	if(f_open(&SDFile,  "hello.txt", FA_CREATE_ALWAYS | FA_WRITE) == FR_OK)
 	{
 
 	  /* Write data to the text file */
