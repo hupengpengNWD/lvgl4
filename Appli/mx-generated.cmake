@@ -9,8 +9,6 @@ set(MX_Defines_Syms
 # STM32CubeMX generated include paths
 set(MX_Include_Dirs
     ${CMAKE_SOURCE_DIR}/Core/Inc
-    ${CMAKE_SOURCE_DIR}/FATFS/Target
-    ${CMAKE_SOURCE_DIR}/FATFS/App
     ${CMAKE_SOURCE_DIR}/../Drivers/STM32H7RSxx_HAL_Driver/Inc
     ${CMAKE_SOURCE_DIR}/../Drivers/STM32H7RSxx_HAL_Driver/Inc/Legacy
     ${CMAKE_SOURCE_DIR}/../Middlewares/Third_Party/FatFs/source
@@ -21,7 +19,6 @@ set(MX_Include_Dirs
 )
 # STM32CubeMX generated application sources
 set(MX_Application_Src
-    ${CMAKE_SOURCE_DIR}/FATFS/App/fatfs.c
     ${CMAKE_SOURCE_DIR}/Core/Src/main.c
     ${CMAKE_SOURCE_DIR}/Core/Src/gpio.c
     ${CMAKE_SOURCE_DIR}/Core/Src/dma2d.c
@@ -72,15 +69,6 @@ set(STM32_Drivers_Src
     ${CMAKE_SOURCE_DIR}/../Drivers/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_ll_usb.c
 )
 
-# Drivers Midllewares
-
-set(FatFs_Src
-    ${CMAKE_SOURCE_DIR}/../Middlewares/Third_Party/FatFs/source/diskio.c
-    ${CMAKE_SOURCE_DIR}/../Middlewares/Third_Party/FatFs/source/ff.c
-    ${CMAKE_SOURCE_DIR}/../Middlewares/Third_Party/FatFs/source/ff_gen_drv.c
-    ${CMAKE_SOURCE_DIR}/../Middlewares/Third_Party/FatFs/source/ffunicode.c
-    ${CMAKE_SOURCE_DIR}/../Middlewares/Third_Party/FatFs/source/drivers/sd/sd_diskio.c
-)
 # Link directories setup
 set(MX_LINK_DIRS
 
@@ -88,7 +76,6 @@ set(MX_LINK_DIRS
 # Project libraries
 set (MX_LINK_LIBS 
     STM32_Drivers
-    FatFs	
 )
 # Interface library for includes and symbols
 add_library(stm32cubemx INTERFACE)
@@ -99,11 +86,6 @@ target_compile_definitions(stm32cubemx INTERFACE ${MX_Defines_Syms})
 add_library(STM32_Drivers OBJECT)
 target_sources(STM32_Drivers PRIVATE ${STM32_Drivers_Src})
 target_link_libraries(STM32_Drivers PUBLIC stm32cubemx)
-
-# Create FatFs static library
-add_library(FatFs OBJECT)
-target_sources(FatFs PRIVATE ${FatFs_Src})
-target_link_libraries(FatFs PUBLIC stm32cubemx)
 
 
 # Add STM32CubeMX generated application sources to the project

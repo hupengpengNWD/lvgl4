@@ -54,6 +54,13 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/lvgl lvgl)
 # Add a USBX subdirectory
 add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx usbx)
 
+# Add a fatfs subdirectory
+add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/fatfs fatfs)
+
+#Because lvgl references fatfs, So it must be carried out!!!
+target_link_libraries(lvgl PUBLIC FatFs)
+
+
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE 
     # Add user defined symbols
@@ -98,6 +105,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     lvgl
     usbx 
     lvgl_demos
+    FatFs
 )
 
 

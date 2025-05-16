@@ -3,22 +3,27 @@
 │   ├── CMakeLists.txt
 │   ├── Core
 │   │   ├── Inc
+│   │   │   ├── dma2d.h
 │   │   │   ├── flash.h
 │   │   │   ├── gpio.h
 │   │   │   ├── i2c.h
 │   │   │   ├── ltdc.h
 │   │   │   ├── main.h
+│   │   │   ├── sdmmc.h
 │   │   │   ├── stm32h7rsxx_hal_conf.h
 │   │   │   ├── stm32h7rsxx_it.h
 │   │   │   ├── tim.h
 │   │   │   └── usb_otg.h
 │   │   ├── Src
+│   │   │   ├── dma2d.c
 │   │   │   ├── flash.c
 │   │   │   ├── gpio.c
 │   │   │   ├── i2c.c
 │   │   │   ├── ltdc.c
 │   │   │   ├── main.c
+│   │   │   ├── sdmmc.c
 │   │   │   ├── stm32h7rsxx_hal_msp.c
+│   │   │   ├── stm32h7rsxx_hal_timebase_tim.c
 │   │   │   ├── stm32h7rsxx_it.c
 │   │   │   ├── syscalls.c
 │   │   │   ├── sysmem.c
@@ -29,8 +34,7 @@
 │   │       └── startup_stm32h7r7xx.s
 │   ├── compile_commands.json
 │   ├── mx-generated.cmake
-│   ├── stm32h7r7xx_flash.ld
-│   └── stm32h7r7xx_sram.ld
+│   └── stm32h7r7xx_flash.ld
 ├── Drivers
 │   ├── CMSIS
 │   │   ├── Device
@@ -168,10 +172,41 @@
 │           └── stm32h7rsxx_ll_usb.c
 ├── ExtMemLoader.stldr
 ├── MiddlewareMy
+│   ├── buzzer
+│   │   ├── passive_buzzer.c
+│   │   └── passive_buzzer.h
+│   ├── fatfs
+│   │   ├── CMakeLists.txt
+│   │   ├── inc
+│   │   │   ├── diskio.h
+│   │   │   ├── fatfs.h
+│   │   │   ├── ff.h
+│   │   │   ├── ff_gen_drv.h
+│   │   │   ├── ffconf.h
+│   │   │   └── sd_diskio_config.h
+│   │   └── src
+│   │       ├── diskio.c
+│   │       ├── drivers
+│   │       │   ├── sd
+│   │       │   │   ├── sd_diskio.c
+│   │       │   │   └── sd_diskio.h
+│   │       │   └── template
+│   │       │       ├── sd_diskio_config.h
+│   │       │       ├── sram_diskio_config.h
+│   │       │       └── usbh_diskio_config.h
+│   │       ├── fatfs.c
+│   │       ├── ff.c
+│   │       ├── ff_gen_drv.c
+│   │       └── ffunicode.c
 │   ├── gt9xx
 │   │   ├── gt9xx.c
 │   │   └── gt9xx.h
-│   ├── lcd_4inches_rgb
+│   ├── key
+│   │   ├── key_it.c
+│   │   └── key_it.h
+│   ├── lcd
+│   │   ├── backlight_lcd.c
+│   │   ├── backlight_lcd.h
 │   │   ├── rgb_lcd_init.c
 │   │   └── rgb_lcd_init.h
 │   ├── lv_conf.h
@@ -3363,12 +3398,11 @@
 │           └── generic
 │               └── inc
 │                   └── ux_port.h
-├── build copy.sh
 ├── build.sh
 ├── gcc-arm-none-eabi.cmake
-├── my_lvgl_app6.ioc
+├── my_lvgl_app20.ioc
 ├── openocd.cfg
 ├── temp.txt
 └── tree.txt
 
-350 directories, 3022 files
+358 directories, 3048 files
