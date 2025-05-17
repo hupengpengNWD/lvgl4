@@ -336,7 +336,6 @@ int main(void)
   // FS_FileTest();
   // test_timer = lv_timer_create(my_lv_fs_test_timer3, 5000, NULL);
 
-  test_timer = lv_timer_create(my_lv_fs_test_timer2, 5000, NULL);
   /* USER CODE END 2 */
 
   /* Infinite loop */
