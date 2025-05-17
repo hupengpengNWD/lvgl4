@@ -248,8 +248,7 @@ VOID USBD_CDC_ACM_ParameterChange(VOID *cdc_acm_instance)
 
 /* USER CODE BEGIN 1 */
 
-#if 0 
-sul
+#if 1 
 static void ux_device_cdc_acm_transmit(uint8_t *data, uint32_t len)
 {
     if ((cdc_acm != NULL))
@@ -261,23 +260,25 @@ static void ux_device_cdc_acm_transmit(uint8_t *data, uint32_t len)
         while (g_ux_device_cdc_acm_write_sta == 0);
     }
 }
-#endif
+#else
 
 static UINT ux_device_cdc_acm_transmit(uint8_t *data, uint32_t len)
 {
     if (cdc_acm != NULL)
     {
+        // 等待上一次传输完成
+        while (g_ux_device_cdc_acm_write_sta == 0);
         g_ux_device_cdc_acm_write_sta = 0;
         UINT status = ux_device_class_cdc_acm_write_with_callback(cdc_acm, (UCHAR *)data, (ULONG)len);
         if (status != UX_SUCCESS)
         {
-            g_ux_device_cdc_acm_write_sta = 1; // 标记为失败，防止后续误判
+            g_ux_device_cdc_acm_write_sta = 1;
             return status;
         }
     }
     return UX_SUCCESS;
 }
-
+#endif
 
 uint64_t ux_device_cdc_acm_receive(uint8_t *buffer, uint32_t requested_length)
 {

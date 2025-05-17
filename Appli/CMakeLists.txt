@@ -57,8 +57,14 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/usbx usbx)
 # Add a fatfs subdirectory
 add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/fatfs fatfs)
 
+# Add a freetype subdirectory
+add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/freetype freetype)
+
 #Because lvgl references fatfs, So it must be carried out!!!
 target_link_libraries(lvgl PUBLIC FatFs)
+
+#Because lvgl references freetype, So it must be carried out!!!
+target_link_libraries(lvgl PUBLIC freetype)
 
 
 # Add project symbols (macros)
@@ -79,6 +85,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lvgl/demos
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/freetype/include
 )
 
 # Add sources to executable
@@ -106,6 +113,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     usbx 
     lvgl_demos
     FatFs
+    freetype
 )
 
 

@@ -93,7 +93,8 @@ FT_Stream_Open(FT_Stream    stream,
     lv_fs_file_t  file;
 
     if(!stream)
-        return FT_THROW(Invalid_Stream_Handle);
+        // return FT_THROW(Invalid_Stream_Handle); sul
+        return FT_Err_Invalid_Stream_Handle;
 
     stream->descriptor.pointer = NULL;
     stream->pathname.pointer   = (char *)filepathname;
@@ -108,7 +109,8 @@ FT_Stream_Open(FT_Stream    stream,
         FT_ERROR(("FT_Stream_Open:"
                   " could not open `%s'\n", filepathname));
 
-        return FT_THROW(Cannot_Open_Resource);
+        // return FT_THROW(Cannot_Open_Resource); sul
+        return FT_Err_Cannot_Open_Resource;
     }
 
     lv_fs_seek(&file, 0, LV_FS_SEEK_END);
@@ -119,7 +121,8 @@ FT_Stream_Open(FT_Stream    stream,
         FT_ERROR(("FT_Stream_Open:"));
         FT_ERROR((" opened `%s' but zero-sized\n", filepathname));
         lv_fs_close(&file);
-        return FT_THROW(Cannot_Open_Stream);
+        // return FT_THROW(Cannot_Open_Stream);sul
+        return FT_Err_Cannot_Open_Stream;
     }
     stream->size = pos;
     lv_fs_seek(&file, 0, LV_FS_SEEK_SET);
@@ -130,7 +133,8 @@ FT_Stream_Open(FT_Stream    stream,
     if(!file_p) {
         FT_ERROR(("FT_Stream_Open: malloc failed for file_p"));
         lv_fs_close(&file);
-        return FT_THROW(Cannot_Open_Stream);
+        // return FT_THROW(Cannot_Open_Stream);
+        return FT_Err_Cannot_Open_Stream;
     }
 
     *file_p = file;

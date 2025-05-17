@@ -54,7 +54,7 @@
 /* 使用lvgl文件读写接口测试时打开的文件的名字 */
 #define FILE_NAME	"lv_fs_test.txt"
 /* 使用lvgl文件读写接口测试时打开的文件的路径 */
-#define DIR_PATH	"0:/"
+#define DIR_PATH	"S:/"
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -97,84 +97,175 @@ static void slider_set_backlight_init(void)
 	lv_obj_add_event_cb(slider, slider_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
 }
 
-/* lvgl文件读接口测试 */
-static void lv_fs_read_file(char * fn)
+/* 读文件测试 */
+static void lv_fs_read_all_txt_files(char * dir_path, char * txt_files[])
 {
-	lv_fs_file_t f;
-	lv_fs_res_t res;
+    // 遍历用户提供的NULL终止文件数组
+    for (int i = 0; txt_files[i] != NULL; i++) {
+        
+        // 构造完整文件路径
+        char full_path[256];
+        snprintf(full_path, sizeof(full_path), "%s%s", dir_path, txt_files[i]);
 
-	res = lv_fs_open(&f, fn, LV_FS_MODE_RD);
+        lv_fs_file_t f;
+        lv_fs_res_t res;
 
-	if(res != LV_FS_RES_OK) {
-		LV_LOG_USER("Open error! Error code: %d\r\n", res);
-		return;
-	}
+        // 打开文件
+        res = lv_fs_open(&f, full_path, LV_FS_MODE_RD);
+        if (res != LV_FS_RES_OK) {
+            LV_LOG_USER("Open error for %s! Error code: %d", full_path, res);
+            continue; // 跳到下一个文件
+        }
 
-	uint32_t read_num;
-	uint8_t buf[100];
+        uint32_t read_num;
+        uint8_t buf[100];
 
-	while (1) {
-		res = lv_fs_read(&f, buf, 100, &read_num);
-		if(res != LV_FS_RES_OK) {
-			LV_LOG_USER("Read error! Error code: %d\r\n", res);
-			break;
-		}
-		/* 将读取到数据打印出来 */
-		LV_LOG("file:%s\r\n", buf);
+        // 读取文件内容
+        while (1) {
+            res = lv_fs_read(&f, buf, 100, &read_num);
+            if (res != LV_FS_RES_OK) {
+                LV_LOG_USER("Read error for %s! Error code: %d", full_path, res);
+                break;
+            }
 
-		if (read_num != 100){
-      break;
-    }	
-      
-	}
+            // 确保缓冲区以空字符终止，以便作为字符串打印
+            if (read_num < 100) {
+                buf[read_num] = '\0';
+            } else {
+                buf[99] = '\0'; // 防止溢出
+            }
 
-	lv_fs_close(&f);
+            // 打印读取到的内容
+            LV_LOG_USER("file:%s", buf);
+
+            if (read_num != 100) {
+                break; // 文件读取完毕
+            }
+        }
+
+        // 关闭文件
+        lv_fs_close(&f);
+    }
+}
+
+
+
+/* 读目录测试 */
+static void lv_fs_read_dir_test(char * path)
+{
+    lv_fs_dir_t dir;
+    lv_fs_res_t res;
+    int file_count = 0; // 记录读取到的文件或目录数量
+
+    // 打开目录
+    res = lv_fs_dir_open(&dir, path);
+    if (res != LV_FS_RES_OK) {
+        LV_LOG_USER("Open DIR error! Error code: %d", res);
+        return;
+    }
+
+    // 目录打开成功
+    LV_LOG_USER("Directory %s opened successfully", path);
+
+    char fn[128]; // 缓冲区，与原函数保持一致
+    while (1) {
+        // 读取目录项
+        res = lv_fs_dir_read(&dir, fn, 128);
+        if (res != LV_FS_RES_OK) {
+            LV_LOG_USER("Read DIR error! Error code: %d", res);
+            break;
+        }
+
+        // 检查是否读取到空文件名（表示目录读取结束）
+        if (strlen(fn) == 0) {
+            LV_LOG_USER("files to read in %s. Total items: %d", path, file_count);
+            break;
+        }
+
+        // 打印读取到的文件或目录名
+        LV_LOG_USER("Found item: %s", fn);
+        file_count++;
+    }
+
+    // 关闭目录
+    lv_fs_dir_close(&dir);
+}
+
+
+
+/* freetype测试 */
+static void lv_Text_tag(void)
+{
+                                              
+    /*Create a font*/
+    lv_font_t * font = lv_freetype_font_create("S:/100ask/SourceHanSansCN-Bold-2.otf",
+                                               LV_FREETYPE_FONT_RENDER_MODE_BITMAP,
+                                               22,
+                                               LV_FREETYPE_FONT_STYLE_NORMAL);
+    if(!font) {
+        LV_LOG_USER("freetype font create failed.");
+        return;
+    }
+
+    /*Create style with the new font*/
+    static lv_style_t style;
+    lv_style_init(&style);
+    //lv_style_set_text_font(&style, &lv_font_montserrat_14);
+    lv_style_set_text_font(&style, font);
+    lv_style_set_text_align(&style, LV_TEXT_ALIGN_CENTER);
+
+    /*Create a label with the new style*/
+    lv_obj_t * label = lv_label_create(lv_screen_active());
+    lv_obj_add_style(label, &style, 0);
+    lv_label_set_text(label, "你好\n" "kkkkkkkkkkkkkkkkkkk");
+    lv_obj_center(label);
+
+    //lv_freetype_font_delete(font);
+}
+
+static void my_lv_fs_test_timer2(lv_timer_t * timer)
+{
+    LV_LOG("skdjflsdjkafjioe");
+    LV_LOG("98fd9u98783249");
 
 }
 
-/* lvgl文件目录读接口测试 */
-static void lv_fs_read_dir(char * path)
+static void my_lv_fs_test_timer3(lv_timer_t * timer)
 {
-	lv_fs_dir_t dir;
-	lv_fs_res_t res;
+    (void)timer;
+    char *root_path = "S:/";
+    char *sub_path = "S:/100ask/";
+    char * my_txt_files[] = {
+        "DshanMCUH7R.TXT",
+        "hello.txt",
+        "lv_fs_test.txt",
+        NULL // 结束标志
+    };
 
-	res = lv_fs_dir_open(&dir, path);
-	if(res != LV_FS_RES_OK){
-		LV_LOG_USER("Open DIR error! Error code: %d\r\n", res);
-		return;
-	}
+    /* 统计根文件目录下的文件和目录的总个数 */
+    LV_LOG_USER("Testing root directory:%s", root_path);
+    lv_fs_read_dir_test(root_path);
 
-	char fn[128];	// 缓冲区
-	while(1) {
-		res = lv_fs_dir_read(&dir, fn, 128);
-		if(res != LV_FS_RES_OK) {
-			LV_LOG_USER("\nRead DIR error! Error code: %d\r\n", res);
-			break;
-		}
+    /* 统计100ask子目录下的文件和目录的总个数 */
+    LV_LOG_USER("Testing 100ask directory:");
+    lv_fs_read_dir_test(sub_path);
+    
+    /* 测试100ask子目录下的文件访问 */ 
+    LV_LOG_USER("Testing open S:/100ask/SourceHanSansCN-Bold-2.otf filse:");
+    lv_fs_file_t file;
+    lv_fs_res_t res = lv_fs_open(&file, "S:/100ask/SourceHanSansCN-Bold-2.otf", LV_FS_MODE_RD);
+    if (res == LV_FS_RES_OK) {
+        LV_LOG_USER("Font file exists");
+        lv_fs_close(&file);
+    } else {
+        LV_LOG_USER("Cannot open font file, error code: %d", res);
+    }
 
-		/* 如果没有更多文件可以读取时 fn 就为空 */
-		if(strlen(fn) == 0) {
-			LV_LOG_USER("\n\nFn is empty, not more files to read.\r\n");
-			break;
-		}
-
-		LV_LOG("file name:%s\r\n", fn);
-	}
-
-	lv_fs_dir_close(&dir);
+    /* 读取根目录下txt文件测试*/
+    LV_LOG_USER("Testing read root txt:");
+    lv_fs_read_all_txt_files(root_path, my_txt_files);
 
 }
-
-/* lvgl文件接口测试定时器 */
-static void my_lv_fs_test_timer(lv_timer_t * timer)
-{
-	// 读取文件（LVGL）
-	lv_fs_read_file(DIR_PATH FILE_NAME);
-
-	// 读取目录内容（LVGL）
-	lv_fs_read_dir(DIR_PATH);
-}
-
 /* USER CODE END 0 */
 
 /**
@@ -185,7 +276,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+  lv_timer_t *test_timer = NULL;
   /* USER CODE END 1 */
 
   /* Enable the CPU Cache */
@@ -234,15 +325,18 @@ int main(void)
   lv_log_register_print_cb(my_log_cb);
   lcd_backlight_init();
   lcd_backlight_set_value(LCD_MAX_BACKLIGHT);
-  LV_LOG_USER("LV_LOG TEST!");
+  ux_device_cdc_acm_printf("system start ok\r\n");
 
-  /* demo和滑动条调节屏幕背光亮度二选一 */
+  /* lvgl界面gul测试：demo界面、滑动条（背光调节）界面、文本标签界面，三选一 */
   // lv_demo_widgets();
-  slider_set_backlight_init();
+  // slider_set_backlight_init();
+  lv_Text_tag();
 
-  /* 文件系统读写测试 二选一*/
+  /* 文件系统读写测试，原始Fatfs文件系统接口测试和对接lvgl文件系统后的文件操作接口测试，二选一*/
   // FS_FileTest();
-  lv_timer_create(my_lv_fs_test_timer, 3000, NULL);
+  // test_timer = lv_timer_create(my_lv_fs_test_timer3, 5000, NULL);
+
+  test_timer = lv_timer_create(my_lv_fs_test_timer2, 5000, NULL);
   /* USER CODE END 2 */
 
   /* Infinite loop */

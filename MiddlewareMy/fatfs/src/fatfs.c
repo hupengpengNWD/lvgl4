@@ -74,7 +74,6 @@ void MX_FATFS_Init(void)
   }
 
 
-  // SDPath: "0:/"
   if(appli_sd_state == APPLICATION_INIT)
   {
 	  if(f_mount(&SDFatFs, (TCHAR const*)SDPath, 0) != FR_OK)

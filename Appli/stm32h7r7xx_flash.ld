@@ -36,11 +36,11 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = ORIGIN(DTCM) + LENGTH(DTCM); /* end of Ram type memory */
+_estack = ORIGIN(DTCM) + LENGTH(DTCM); /* end of Ram type memory */ 
 
-_Min_Heap_Size = 0x800;      /* required amount of heap  */
-_Min_Stack_Size = 0x1000; /* required amount of stack */
 
+_Min_Heap_Size = 0xB000;      /* required amount of heap  */
+_Min_Stack_Size = 0x2800; /* required amount of stack */
 
 __INTERNAL_FLASH_BEGIN  = 0x08000000;
 __INTERNAL_FLASH_SIZE   = 0x00010000;
