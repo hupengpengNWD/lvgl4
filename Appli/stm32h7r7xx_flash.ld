@@ -40,7 +40,7 @@ _estack = ORIGIN(DTCM) + LENGTH(DTCM); /* end of Ram type memory */
 
 
 _Min_Heap_Size = 0xB000;      /* required amount of heap  */
-_Min_Stack_Size = 0x2800; /* required amount of stack */
+_Min_Stack_Size = 0x2800;     /* required amount of stack */
 
 __INTERNAL_FLASH_BEGIN  = 0x08000000;
 __INTERNAL_FLASH_SIZE   = 0x00010000;
@@ -56,21 +56,15 @@ __RAM_NONCACHEABLEBUFFER_SIZE = 0x400;
 /* Memories definition */
 MEMORY
 {
-  RAM       (xrw) : ORIGIN = __RAM,    LENGTH = __RAM_SIZE
-  /*RAM_NONCACHEABLEBUFFER (xrw) : ORIGIN = __RAM + __RAM_SIZE,  LENGTH = __RAM_NONCACHEABLEBUFFER_SIZE*/
+  RAM                    (xrw) :     ORIGIN = __RAM,                LENGTH = __RAM_SIZE
   RAM_NONCACHEABLEBUFFER (xrw) : ORIGIN = 0xC1800000 + 0x00800000,  LENGTH = __RAM_NONCACHEABLEBUFFER_SIZE
-  
-  ITCM      (xrw) : ORIGIN = 0x00000000,    LENGTH = 0x00010000
-  DTCM       (rw) : ORIGIN = 0x20000000,    LENGTH = 0x00010000
-  SRAMAHB   (rw)  : ORIGIN = 0x30000000,  LENGTH = 0x00008000
-  BKPSRAM   (rw)  : ORIGIN = 0x38800000,  LENGTH = 0x00001000
-
-  APP_SDRAM (xrw) : ORIGIN = 0xC1000000, LENGTH = 0x00800000 /*8M*/
-  /*APP_SDRAM (rwx) : ORIGIN = 0xC0800000, LENGTH = 0x00800000 /*8M*/
-  SDRAM (xrw) : ORIGIN = 0xC1800000, LENGTH = 0x00800000 /*8M*/
-
-  FLASH     (rw) : ORIGIN = __FLASH_BEGIN, LENGTH = __FLASH_SIZE
-  
+  ITCM                   (xrw) : ORIGIN = 0x00000000,               LENGTH = 0x00010000
+  DTCM                   (rw)  : ORIGIN = 0x20000000,               LENGTH = 0x00010000
+  SRAMAHB                (rw)  : ORIGIN = 0x30000000,               LENGTH = 0x00008000
+  BKPSRAM                (rw)  : ORIGIN = 0x38800000,               LENGTH = 0x00001000
+  APP_SDRAM              (xrw) : ORIGIN = 0xC1000000,               LENGTH = 0x00800000 /*8M*/
+  SDRAM                  (xrw) : ORIGIN = 0xC1800000,               LENGTH = 0x00800000 /*8M*/
+  FLASH                  (rw)  : ORIGIN = __FLASH_BEGIN,            LENGTH = __FLASH_SIZE
   INTERNAL_FLASH (xrw) : ORIGIN = __INTERNAL_FLASH_BEGIN, LENGTH = __INTERNAL_FLASH_SIZE
 }
 

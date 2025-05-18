@@ -60,6 +60,9 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/fatfs fatfs)
 # Add a freetype subdirectory
 add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/freetype freetype)
 
+# Add a FreeRTOS subdirectory
+add_subdirectory(${CMAKE_SOURCE_DIR}/../MiddlewareMy/FreeRTOS freertos) 
+
 #Because lvgl references fatfs, So it must be carried out!!!
 target_link_libraries(lvgl PUBLIC FatFs)
 
@@ -86,6 +89,13 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lvgl/demos
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/freetype/include
+
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/FreeRTOS/Source/include
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/FreeRTOS/Source/CMSIS_RTOS_V2
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/FreeRTOS/Source/portable/GCC/ARM_CM4F
+
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/task
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/test
 )
 
 # Add sources to executable
@@ -99,6 +109,9 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lv_port_disp.c
     ${CMAKE_SOURCE_DIR}/../MiddlewareMy/lv_port_indev.c
+
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/task/default_task.c
+    ${CMAKE_SOURCE_DIR}/../MiddlewareMy/test/test.c
 
 )
 
@@ -114,6 +127,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     lvgl_demos
     FatFs
     freetype
+    freertos
 )
 
 
