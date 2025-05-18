@@ -39,8 +39,8 @@
 #include "lv_demos.h"
 #include <src/misc/lv_log.h>
 
-
-
+/* freertos使用的ram */
+uint8_t ucHeap[configTOTAL_HEAP_SIZE] __attribute__((section(".freertos_heap")));//sul
 
 void Lvgl_Timer_Handler_Task(void *argument);
 void vApplicationTickHook(void);
@@ -53,7 +53,7 @@ const osThreadAttr_t Lvgl_Timer_Handler_Task_Attributes = {
 };
 
 
-/* USER CODE BEGIN 3 */
+
 void vApplicationTickHook( void )
 {
    /* This function will be called by each tick interrupt if
@@ -62,7 +62,15 @@ void vApplicationTickHook( void )
    code must not attempt to block, and only the interrupt safe FreeRTOS API
    functions can be used (those that end in FromISR()). */
 }
-/* USER CODE END 3 */
+
+
+/* 测试usbx */
+static void my_lv_timer_callback(lv_timer_t * timer)
+{
+    (void)timer;
+    LV_LOG("测试freertos使用单独SDRAM\r\n");
+
+}
 
 
 /**
@@ -71,7 +79,8 @@ void vApplicationTickHook( void )
   * @retval None
   */
 void task_init(void) {
-  
+
+  lv_timer_create(my_lv_timer_callback, 1000, NULL);
   Lvgl_Timer_Handler_Task_Handle = osThreadNew(Lvgl_Timer_Handler_Task, NULL, &Lvgl_Timer_Handler_Task_Attributes);
 
 

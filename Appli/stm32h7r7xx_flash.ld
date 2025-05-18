@@ -217,6 +217,14 @@ SECTIONS
 	. = ALIGN(4);
   } >RAM AT >FLASH
   
+  /* sul */
+  .freertos_heap :
+  {
+      . = ALIGN(4);
+      KEEP(*(.freertos_heap))
+      . = ALIGN(4);
+  } >SDRAM AT >FLASH
+
   /* Remove information from the compiler libraries */
   /DISCARD/ :
   {

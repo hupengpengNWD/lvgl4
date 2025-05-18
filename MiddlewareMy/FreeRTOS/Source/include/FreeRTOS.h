@@ -942,7 +942,7 @@
 #endif
 
 #ifndef configAPPLICATION_ALLOCATED_HEAP
-    #define configAPPLICATION_ALLOCATED_HEAP    0
+    #define configAPPLICATION_ALLOCATED_HEAP    1//sul
 #endif
 
 #ifndef configUSE_TASK_NOTIFICATIONS
