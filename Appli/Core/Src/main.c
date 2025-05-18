@@ -41,15 +41,16 @@
 
 #include "test.h"
 #include "default_task.h"
+#include <src/tick/lv_tick.h>
 
 
 
 
-/* 虚拟串口打印的回调函数 */
-void lvgl_log_cb(lv_log_level_t level, const char * buf)
-{
-	ux_device_cdc_acm_printf("%s", buf);
-}
+// /* 虚拟串口打印的回调函数 */
+// void lvgl_log_cb(lv_log_level_t level, const char * buf)
+// {
+// 	ux_device_cdc_acm_printf("%s", buf);
+// }
 
 
 
@@ -78,18 +79,17 @@ int main(void)
   MX_FATFS_Init();
 
 
-  lv_init();
-  // lv_tick_set_cb(HAL_GetTick);//lvgl的心跳函数，使用freertos的tick的hook函数实现，故屏蔽
-  // lv_delay_set_cb(HAL_Delay);// 一般不使用lvgl的延时函数接口，故可以屏蔽
-  lv_port_disp_init();
-  lv_port_indev_init();
-  lv_log_register_print_cb(lvgl_log_cb);
-  lcd_backlight_init();
-  lcd_backlight_set_value(LCD_MAX_BACKLIGHT);
-  ux_device_cdc_acm_printf("usbx tese ok\r\n");
+  // lv_init();
+  // lv_port_disp_init();
+  // lv_port_indev_init();
+  // lv_log_register_print_cb(lvgl_log_cb);
+
+  // lcd_backlight_init();
+  // lcd_backlight_set_value(LCD_MAX_BACKLIGHT);
+  // ux_device_cdc_acm_printf("usbx tese ok\r\n");
 
   /* lvgl界面gul测试：demo界面、滑动条（背光调节）界面、文本标签界面，三选一 */
-  lv_demo_widgets();
+  // lv_demo_widgets();
   // test_slider_set_backlight_init();
   // test_lv_Text_tag();
 

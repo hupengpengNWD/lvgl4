@@ -69,6 +69,8 @@ target_link_libraries(lvgl PUBLIC FatFs)
 #Because lvgl references freetype, So it must be carried out!!!
 target_link_libraries(lvgl PUBLIC freetype)
 
+#Because lvgl references freertos, So it must be carried out!!!
+target_link_libraries(lvgl PUBLIC freertos)
 
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE 

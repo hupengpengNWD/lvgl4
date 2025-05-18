@@ -14,6 +14,7 @@
 #include <string.h>
 #include "ltdc.h"
 #include "dma2d.h"
+#include "backlight_lcd.h"
 /*********************
  *      DEFINES
  *********************/
@@ -57,6 +58,8 @@ void lv_port_disp_init(void)
     /*-------------------------
      * Initialize your display
      * -----------------------*/
+    lcd_backlight_init();
+    lcd_backlight_set_value(LCD_MAX_BACKLIGHT);
     disp_init();
 
     /*------------------------------------

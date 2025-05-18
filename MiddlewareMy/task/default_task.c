@@ -31,7 +31,7 @@
 #include "tim.h"
 #include "usb_otg.h"
 #include "gpio.h"
-
+#include "ux_device_cdc_acm.h"
 
 #include "lvgl.h"
 #include "lv_port_disp.h"
@@ -40,12 +40,12 @@
 #include <src/misc/lv_log.h>
 #include <src/tick/lv_tick.h>
 
+
 /* freertos使用的ram */
 uint8_t ucHeap[configTOTAL_HEAP_SIZE] __attribute__((section(".freertos_heap")));//sul
 
+/* lvgl任务 */
 void Lvgl_Timer_Handler_Task(void *argument);
-void vApplicationTickHook(void);
-
 osThreadId_t Lvgl_Timer_Handler_Task_Handle;
 const osThreadAttr_t Lvgl_Timer_Handler_Task_Attributes = {
   .name = "Lvgl_Timer_Handler_Task_Name",
@@ -65,13 +65,21 @@ void vApplicationTickHook( void )
    lv_tick_inc(1);
 }
 
+/* 虚拟串口打印的回调函数 */
+void lvgl_log_cb(lv_log_level_t level, const char * buf)
+{
+	ux_device_cdc_acm_printf("%s", buf);
+}
+
 
 /* 测试usbx */
 static void my_lv_timer_callback(lv_timer_t * timer)
 {
     (void)timer;
     // LV_LOG("测试freertos使用单独SDRAM\r\n");
-    LV_LOG("测试lvgl的tick使用tick的hook函数\r\n");
+    // LV_LOG("测试lvgl心跳使用freertos的tick的hook函数实现\r\n");
+    LV_LOG("测试lvgl相关代码移动到freertos初始化后再初始化\r\n");
+
 
 }
 
@@ -83,7 +91,22 @@ static void my_lv_timer_callback(lv_timer_t * timer)
   */
 void task_init(void) {
 
+  /* lvgl核心初始化 */
+  lv_init();
+  lv_port_disp_init();
+  lv_port_indev_init();
+  lv_log_register_print_cb(lvgl_log_cb);
+  /* xxx核心初始化 */
+
+
+
+  /* 创建一个lvgl定时器 */
   lv_timer_create(my_lv_timer_callback, 1000, NULL);
+  /* 创建一个lvgl界面 */
+  lv_demo_widgets();
+
+
+  /* 创建一个lvgl任务 */
   Lvgl_Timer_Handler_Task_Handle = osThreadNew(Lvgl_Timer_Handler_Task, NULL, &Lvgl_Timer_Handler_Task_Attributes);
 
 
@@ -99,7 +122,6 @@ void task_init(void) {
   */
 void Lvgl_Timer_Handler_Task(void *argument)
 {
-
   for(;;)
   {
     lv_timer_handler();
