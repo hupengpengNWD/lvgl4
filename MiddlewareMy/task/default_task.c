@@ -38,6 +38,7 @@
 #include "lv_port_indev.h"
 #include "lv_demos.h"
 #include <src/misc/lv_log.h>
+#include <src/tick/lv_tick.h>
 
 /* freertos使用的ram */
 uint8_t ucHeap[configTOTAL_HEAP_SIZE] __attribute__((section(".freertos_heap")));//sul
@@ -61,6 +62,7 @@ void vApplicationTickHook( void )
    added here, but the tick hook is called from an interrupt context, so
    code must not attempt to block, and only the interrupt safe FreeRTOS API
    functions can be used (those that end in FromISR()). */
+   lv_tick_inc(1);
 }
 
 
@@ -68,7 +70,8 @@ void vApplicationTickHook( void )
 static void my_lv_timer_callback(lv_timer_t * timer)
 {
     (void)timer;
-    LV_LOG("测试freertos使用单独SDRAM\r\n");
+    // LV_LOG("测试freertos使用单独SDRAM\r\n");
+    LV_LOG("测试lvgl的tick使用tick的hook函数\r\n");
 
 }
 
