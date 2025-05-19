@@ -45,15 +45,6 @@
 
 
 
-
-// /* 虚拟串口打印的回调函数 */
-// void lvgl_log_cb(lv_log_level_t level, const char * buf)
-// {
-// 	ux_device_cdc_acm_printf("%s", buf);
-// }
-
-
-
 /**
   * @brief  The application entry point.
   * @retval int
@@ -76,22 +67,7 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM12_Init();
   MX_SDMMC1_SD_Init();
-  MX_FATFS_Init();
-
-
-  // lv_init();
-  // lv_port_disp_init();
-  // lv_port_indev_init();
-  // lv_log_register_print_cb(lvgl_log_cb);
-
-  // lcd_backlight_init();
-  // lcd_backlight_set_value(LCD_MAX_BACKLIGHT);
-  // ux_device_cdc_acm_printf("usbx tese ok\r\n");
-
-  /* lvgl界面gul测试：demo界面、滑动条（背光调节）界面、文本标签界面，三选一 */
-  // lv_demo_widgets();
-  // test_slider_set_backlight_init();
-  // test_lv_Text_tag();
+  // MX_FATFS_Init();
 
   /* freertos测试 */
   osKernelInitialize();

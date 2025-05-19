@@ -10,6 +10,7 @@ target_sources(FatFs PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ff_gen_drv.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ffunicode.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/fatfs.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ffsystem.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/drivers/sd/sd_diskio.c
 )
 

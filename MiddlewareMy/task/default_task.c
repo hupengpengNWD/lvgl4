@@ -39,6 +39,7 @@
 #include "lv_demos.h"
 #include <src/misc/lv_log.h>
 #include <src/tick/lv_tick.h>
+#include "test.h"
 
 
 /* freertos使用的ram */
@@ -78,7 +79,10 @@ static void my_lv_timer_callback(lv_timer_t * timer)
     (void)timer;
     // LV_LOG("测试freertos使用单独SDRAM\r\n");
     // LV_LOG("测试lvgl心跳使用freertos的tick的hook函数实现\r\n");
-    LV_LOG("测试lvgl相关代码移动到freertos初始化后再初始化\r\n");
+    // LV_LOG("测试lvgl相关代码移动到freertos初始化后再初始化\r\n");
+    // LV_LOG("测试lvgl使用freertos的互斥量等接口\r\n");
+    LV_LOG("测试lvgl使用freetype加载第三方字体库\r\n");
+
 
 
 }
@@ -90,20 +94,6 @@ static void my_lv_timer_callback(lv_timer_t * timer)
   * @retval None
   */
 void task_init(void) {
-
-  /* lvgl核心初始化 */
-  lv_init();
-  lv_port_disp_init();
-  lv_port_indev_init();
-  lv_log_register_print_cb(lvgl_log_cb);
-  /* xxx核心初始化 */
-
-
-
-  /* 创建一个lvgl定时器 */
-  lv_timer_create(my_lv_timer_callback, 1000, NULL);
-  /* 创建一个lvgl界面 */
-  lv_demo_widgets();
 
 
   /* 创建一个lvgl任务 */
@@ -122,6 +112,25 @@ void task_init(void) {
   */
 void Lvgl_Timer_Handler_Task(void *argument)
 {
+  FATFS_Init();
+  /* lvgl核心初始化 */
+  lv_init();
+  lv_port_disp_init();
+  lv_port_indev_init();
+  lv_log_register_print_cb(lvgl_log_cb);
+
+  /* 创建一个lvgl定时器 用于打印每次实验的目的*/
+  lv_timer_create(my_lv_timer_callback, 1000, NULL);
+
+  /* 测试fatfs使用freertos的互斥量等接口，测试此项时需要将上面的语句屏蔽 */
+  // lv_timer_create(test_lv_fs_test_timer_callback, 1000, NULL);
+
+  /* 测试一个lvgl的demo界面 */
+  // lv_demo_widgets();
+
+  /* 测试一个lvgl的加载freetype字体的界面 */
+  test_lv_Text_tag();
+
   for(;;)
   {
     lv_timer_handler();

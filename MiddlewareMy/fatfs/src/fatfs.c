@@ -65,7 +65,7 @@ FS_FileOperationsTypeDef appli_sd_state = APPLICATION_IDLE;
 
 /* USER CODE END 0 */
 
-void MX_FATFS_Init(void)
+void FATFS_Init(void)
 {
   /* USER CODE BEGIN Init */
   if (FATFS_LinkDriver(&SD_Driver, SDPath) == 0)

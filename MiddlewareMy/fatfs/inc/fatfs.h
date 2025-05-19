@@ -38,7 +38,7 @@
 /* USER CODE END Private defines */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void MX_FATFS_Init(void);
+void FATFS_Init(void);
 /* USER CODE BEGIN Prototypes */
 int32_t FS_FileTest(void);
 /* USER CODE END Prototypes */
